@@ -1,0 +1,16 @@
+.env
+  h_ebc581c8e499a0 1-7
+.env.local
+  h_ebc581c8e499a0 1-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.19",
+  "base_commit_sha": "f767c1ce3908090ffa89464d9a933a4711da4c05",
+  "prompts": {},
+  "humans": {
+    "h_ebc581c8e499a0": {
+      "author": "Mayurdhvajsinh Vaghela <mayurdhvaj@kitchen365.com>"
+    }
+  }
+}
