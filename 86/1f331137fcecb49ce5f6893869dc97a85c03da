@@ -1,0 +1,21 @@
+.env.local
+  s_fb59fe56a0ff38::t_53f1b4980df5e4 1-2
+.env
+  s_fb59fe56a0ff38::t_e36739a19fdd9f 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.19",
+  "base_commit_sha": "861f331137fcecb49ce5f6893869dc97a85c03da",
+  "prompts": {},
+  "sessions": {
+    "s_fb59fe56a0ff38": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "447d0560-7137-4afd-ac8d-5ff8fedcea8c",
+        "model": "default"
+      },
+      "human_author": "Mayurdhvajsinh Vaghela <mayurdhvaj@kitchen365.com>"
+    }
+  }
+}
