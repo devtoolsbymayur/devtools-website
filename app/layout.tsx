@@ -112,9 +112,12 @@ export default async function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
+      {/* Real script tag in head — required for AdSense site ownership crawl */}
+      <head>
+        <AdSenseScript />
+      </head>
       <body className="flex min-h-full flex-col bg-bg text-text">
         <ThemeScript />
-        <AdSenseScript />
         <Header navItems={nav.map((t) => ({ href: t.href, label: t.label }))} />
         <main className="flex-1">{children}</main>
         <Footer

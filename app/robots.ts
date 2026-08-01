@@ -11,6 +11,11 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: ["/admin", "/admin/", `${ADMIN_BASE_PATH}`, `${ADMIN_BASE_PATH}/`, "/api/"],
       },
+      // AdSense ownership / ad crawler
+      {
+        userAgent: "Mediapartners-Google",
+        allow: "/",
+      },
     ],
     sitemap: `${base}/sitemap.xml`,
   };
