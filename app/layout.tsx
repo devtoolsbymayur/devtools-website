@@ -8,10 +8,13 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { ThemeScript } from "@/components/ThemeScript";
 import { ADMIN_BASE_PATH } from "@/lib/admin-path";
+import { getAdSenseClient } from "@/lib/adsense";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE } from "@/lib/constants";
 import { PRIMARY_KEYWORDS } from "@/lib/seo";
 import { getPublicTools, splitTools } from "@/lib/site-config";
 import "./globals.css";
+
+const adsenseClient = getAdSenseClient();
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -69,6 +72,10 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
     shortcut: "/favicon.ico",
   },
+  // AdSense site ownership (HTML meta — works even if script is deferred)
+  ...(adsenseClient
+    ? { other: { "google-adsense-account": adsenseClient } }
+    : {}),
 };
 
 export default async function RootLayout({
