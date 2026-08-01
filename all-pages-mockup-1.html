@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Pages — Design Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#FAFAF8; --surface:#FFFFFF; --text:#18181B; --text-muted:#71717A; --border:#E4E4E7;
+    --accent:#6366F1; --accent-hover:#4F46E5; --accent-soft:#EEF2FF;
+    --success:#22C55E; --success-soft:#F0FDF4; --error:#EF4444; --radius:10px;
+    --code-key:#6366F1; --code-str:#16A34A; --code-num:#EA580C; --code-bool:#0891B2; --code-punc:#71717A;
+  }
+  body.dark {
+    --bg:#18181B; --surface:#27272A; --text:#F4F4F5; --text-muted:#A1A1AA; --border:#3F3F46;
+    --accent:#818CF8; --accent-hover:#A5B4FC; --accent-soft:#312E81;
+    --success:#4ADE80; --success-soft:#14532D; --error:#F87171;
+    --code-key:#A5B4FC; --code-str:#4ADE80; --code-num:#FB923C; --code-bool:#22D3EE; --code-punc:#A1A1AA;
+  }
+  body, header, .panel, footer, .btn { transition: background-color .25s, border-color .25s, color .25s; }
+  * { box-sizing: border-box; margin:0; padding:0; }
+  body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+  .mono { font-family:'JetBrains Mono',monospace; }
+
+  /* Demo switcher */
+  .demo-switcher { position:sticky; top:0; z-index:50; background:#18181B; padding:14px 20px; }
+  .switcher-group { max-width:1000px; margin:0 auto 8px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .switcher-group .glabel { color:#71717A; font-size:11px; text-transform:uppercase; letter-spacing:.05em; width:78px; flex-shrink:0; }
+  .switcher-group button {
+    background:#27272A; color:#A1A1AA; border:1px solid #3F3F46; padding:5px 12px;
+    border-radius:100px; font-size:12px; cursor:pointer; font-family:inherit;
+  }
+  .switcher-group button.active { background:var(--accent); color:white; border-color:var(--accent); }
+
+  header { background:var(--surface); border-bottom:1px solid var(--border); }
+  .header-inner { max-width:1000px; margin:0 auto; padding:16px 24px; display:flex; align-items:center; justify-content:space-between; }
+  .logo { display:flex; align-items:center; gap:9px; font-weight:800; font-size:17px; letter-spacing:-0.03em; color:var(--accent); text-decoration:none; }
+  .logo .mark { width:28px; height:28px; border-radius:8px; background:linear-gradient(135deg,#6366F1,#8B5CF6); display:flex; align-items:center; justify-content:center; }
+  .logo .dot { color:#F59E0B; }
+  .theme-toggle { width:34px; height:34px; border-radius:8px; border:1px solid var(--border); background:var(--surface); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:15px; }
+
+  .page { max-width:1000px; margin:0 auto; padding:40px 24px 80px; display:none; }
+  .page.active { display:block; }
+  .page.narrow { max-width:700px; }
+
+  .back-link { display:inline-flex; align-items:center; gap:6px; color:var(--text-muted); text-decoration:none; font-size:13px; margin-bottom:22px; }
+  .back-link:hover { color:var(--accent); }
+
+  .tool-head { display:flex; align-items:center; gap:12px; margin-bottom:6px; }
+  .tool-icon { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .page h1 { font-size:26px; letter-spacing:-0.02em; }
+  .page .lede { color:var(--text-muted); font-size:15px; margin:6px 0 28px; }
+
+  /* Toolbar + panels (shared tool layout) */
+  .toolbar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; background:var(--surface); border:1px solid var(--border); border-bottom:none; border-radius:var(--radius) var(--radius) 0 0; padding:12px 16px; }
+  .btn-group { display:flex; gap:8px; flex-wrap:wrap; }
+  .btn { font-family:inherit; font-size:13px; font-weight:600; padding:8px 14px; border-radius:7px; border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer; }
+  .btn:hover { border-color:var(--accent); color:var(--accent-hover); }
+  .btn-primary { background:var(--accent); border-color:var(--accent); color:white; }
+  .panels { display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--border); border-radius:0 0 var(--radius) var(--radius); overflow:hidden; }
+  .panels.single { grid-template-columns:1fr; }
+  .panel { background:var(--surface); }
+  .panel + .panel { border-left:1px solid var(--border); }
+  .panel-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-bottom:1px solid var(--border); font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.04em; }
+  .code-area { padding:16px; font-size:13px; line-height:1.7; min-height:220px; max-height:340px; overflow:auto; }
+  .expand-btn { width:24px; height:24px; border-radius:6px; border:1px solid var(--border); background:var(--surface); color:var(--text-muted); cursor:pointer; font-size:11px; display:flex; align-items:center; justify-content:center; }
+  .expand-btn:hover { border-color:var(--accent); color:var(--accent-hover); }
+  .panel.is-fullscreen { position:fixed; inset:0; z-index:200; border-radius:0; border:none; display:flex; flex-direction:column; }
+  .panel.is-fullscreen .code-area { flex:1; max-height:none; font-size:15px; }
+  body.panel-open { overflow:hidden; }
+  .tok-key{color:var(--code-key);} .tok-str{color:var(--code-str);} .tok-num{color:var(--code-num);} .tok-bool{color:var(--code-bool);} .tok-punc{color:var(--code-punc);}
+  .status-bar { display:flex; justify-content:space-between; padding:10px 16px; font-size:12px; color:var(--text-muted); border-top:1px solid var(--border); }
+  .status-valid { color:var(--success); font-weight:600; }
+  .status-error { color:var(--error); font-weight:600; }
+
+  .upload-zone { border:2px dashed var(--border); border-radius:var(--radius); padding:40px; text-align:center; color:var(--text-muted); font-size:13px; margin-top:16px; }
+
+  /* Contact */
+  .contact-grid { display:grid; grid-template-columns:1fr 1.3fr; gap:40px; }
+  .contact-info a { display:flex; align-items:center; gap:10px; color:var(--text); text-decoration:none; font-size:14px; margin-bottom:14px; }
+  .icon-badge { width:32px; height:32px; border-radius:8px; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+  form { display:flex; flex-direction:column; gap:16px; }
+  label { font-size:13px; font-weight:600; margin-bottom:6px; display:block; }
+  input, textarea { width:100%; font-family:inherit; font-size:14px; padding:10px 12px; border:1px solid var(--border); border-radius:8px; background:var(--surface); color:var(--text); }
+  textarea { resize:vertical; min-height:100px; }
+  .submit-btn { background:var(--accent); color:white; border:none; padding:11px 20px; border-radius:8px; font-family:inherit; font-weight:600; font-size:14px; cursor:pointer; width:fit-content; }
+
+  /* About (freelancer style) */
+  .about-block { margin-bottom:28px; }
+  .about-block p { color:var(--text-muted); font-size:15px; }
+  .stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:28px 0; }
+  .stat { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; text-align:center; }
+  .stat .num { font-size:22px; font-weight:800; color:var(--accent); }
+  .stat .label { font-size:12px; color:var(--text-muted); margin-top:4px; }
+  .maker-row { display:flex; align-items:center; gap:14px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px; margin-top:24px; }
+  .maker-avatar { width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,#6366F1,#8B5CF6); flex-shrink:0; }
+  .maker-row h4 { font-size:14px; } .maker-row p { font-size:12px; color:var(--text-muted); }
+
+  /* Legal */
+  .legal-updated { font-size:12px; color:var(--text-muted); margin-bottom:28px; }
+  .legal-section { margin-bottom:24px; }
+  .legal-section h2 { font-size:16px; margin-bottom:6px; }
+  .legal-section p { color:var(--text-muted); font-size:14px; }
+
+  .ad-placeholder { margin:24px 0; padding:20px; border:1px dashed var(--border); border-radius:var(--radius); text-align:center; color:var(--text-muted); font-size:12px; background:repeating-linear-gradient(45deg, transparent, transparent 10px, var(--border) 10px, var(--border) 20px); }
+
+  footer { margin-top:60px; background:var(--surface); border-top:1px solid var(--border); }
+  .footer-inner { max-width:1000px; margin:0 auto; padding:40px 24px 28px; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:28px; }
+  .footer-brand p { color:var(--text-muted); font-size:13px; margin-top:10px; max-width:220px; }
+  .footer-col h4 { font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-muted); margin-bottom:12px; font-weight:600; }
+  .footer-col a { display:block; color:var(--text); text-decoration:none; font-size:13px; margin-bottom:9px; }
+  .footer-col a:hover { color:var(--accent); }
+  .footer-bottom { max-width:1000px; margin:0 auto; padding:16px 24px; border-top:1px solid var(--border); font-size:12px; color:var(--text-muted); text-align:center; }
+
+  @media (max-width:700px){ .panels{grid-template-columns:1fr;} .panel+.panel{border-left:none;border-top:1px solid var(--border);} .contact-grid{grid-template-columns:1fr;} .stats-row{grid-template-columns:1fr;} .footer-inner{grid-template-columns:1fr 1fr;} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo"><div class="mark"><svg width="16" height="16" viewBox="0 0 32 32"><rect x="9" y="6" width="16" height="4" rx="1.5" fill="white" opacity="0.5"/><rect x="7" y="12" width="18" height="5" rx="1.5" fill="white" opacity="0.85"/><rect x="9" y="19" width="16" height="6" rx="1.5" fill="#FBBF24"/></svg></div>json<span class="dot">.</span></a>
+    <div class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</div>
+  </div>
+</header>
+
+<!-- JSON FORMATTER -->
+<div class="page active" id="formatter">
+  <div class="tool-head"><div class="tool-icon" style="background:var(--accent-soft);">🧩</div><h1>JSON Formatter</h1></div>
+  <p class="lede">Format and beautify your JSON with proper indentation.</p>
+  <div class="toolbar"><div class="btn-group"><button class="btn btn-primary">Format</button><button class="btn">Copy</button><button class="btn">Download</button><button class="btn">Clear</button></div></div>
+  <div class="panels">
+    <div class="panel"><div class="panel-header"><span>Input</span><button class="expand-btn" onclick="toggleFullscreen(this)">⤢</button></div><div class="code-area mono">{"name":"John","age":30}</div></div>
+    <div class="panel"><div class="panel-header"><span>Output</span><button class="expand-btn" onclick="toggleFullscreen(this)">⤢</button></div><div class="code-area mono"><span class="tok-punc">{</span><br>&nbsp;&nbsp;<span class="tok-key">"name"</span><span class="tok-punc">:</span> <span class="tok-str">"John"</span><span class="tok-punc">,</span><br>&nbsp;&nbsp;<span class="tok-key">"age"</span><span class="tok-punc">:</span> <span class="tok-num">30</span><br><span class="tok-punc">}</span></div></div>
+  </div>
+  <div class="ad-placeholder">Ad Placeholder — Below Tool</div>
+</div>
+
+<!-- JSON VALIDATOR -->
+<div class="page" id="validator">
+  <div class="tool-head"><div class="tool-icon" style="background:#FEF2F2;">✅</div><h1>JSON Validator</h1></div>
+  <p class="lede">Check if your JSON is valid and get precise error details.</p>
+  <div class="toolbar"><div class="btn-group"><button class="btn btn-primary">Validate</button><button class="btn">Clear</button></div></div>
+  <div class="panels">
+    <div class="panel"><div class="panel-header">Input</div><div class="code-area mono">{"name":"John","age":}</div><div class="status-bar"><span class="status-error">✕ Unexpected token at line 1, col 22</span></div></div>
+    <div class="panel"><div class="panel-header">Result</div><div class="code-area" style="color:var(--text-muted); font-size:13px;">Fix the highlighted position — a value is missing after <span class="tok-key mono">"age":</span></div></div>
+  </div>
+</div>
+
+<!-- JSON MINIFIER -->
+<div class="page" id="minifier">
+  <div class="tool-head"><div class="tool-icon" style="background:var(--accent-soft);">📦</div><h1>JSON Minifier</h1></div>
+  <p class="lede">Compress JSON by removing whitespace — smaller payloads, faster transfer.</p>
+  <div class="toolbar"><div class="btn-group"><button class="btn btn-primary">Minify</button><button class="btn">Copy</button></div></div>
+  <div class="panels">
+    <div class="panel"><div class="panel-header">Input · 62 chars</div><div class="code-area mono">{<br>&nbsp;&nbsp;"name": "John",<br>&nbsp;&nbsp;"age": 30<br>}</div></div>
+    <div class="panel"><div class="panel-header">Output · 24 chars</div><div class="code-area mono">{"name":"John","age":30}</div></div>
+  </div>
+</div>
+
+<!-- JSON VIEWER -->
+<div class="page" id="viewer">
+  <div class="tool-head"><div class="tool-icon" style="background:var(--accent-soft);">🌳</div><h1>JSON Viewer</h1></div>
+  <p class="lede">Upload or paste JSON to explore it in a collapsible tree.</p>
+  <div class="toolbar"><div class="btn-group"><button class="btn">Load URL</button><button class="btn">Upload File</button></div></div>
+  <div class="panels single">
+    <div class="panel"><div class="panel-header"><span>Tree View</span><button class="expand-btn" onclick="toggleFullscreen(this)">⤢</button></div><div class="code-area">
+      <div>▾ <span class="tok-key">root</span></div>
+      <div style="margin-left:20px;">name: <span class="tok-str">"John"</span></div>
+      <div style="margin-left:20px;">age: <span class="tok-num">30</span></div>
+    </div></div>
+  </div>
+</div>
+
+<!-- XML FORMATTER -->
+<div class="page" id="xml">
+  <div class="tool-head"><div class="tool-icon" style="background:#FFF7ED;">📄</div><h1>XML Formatter</h1></div>
+  <p class="lede">Format and validate XML documents with proper indentation.</p>
+  <div class="toolbar"><div class="btn-group"><button class="btn btn-primary">Format</button><button class="btn">Copy</button></div></div>
+  <div class="panels">
+    <div class="panel"><div class="panel-header">Input</div><div class="code-area mono"><span class="tok-punc">&lt;user&gt;&lt;name&gt;</span>John<span class="tok-punc">&lt;/name&gt;&lt;/user&gt;</span></div></div>
+    <div class="panel"><div class="panel-header">Output</div><div class="code-area mono"><span class="tok-punc">&lt;user&gt;</span><br>&nbsp;&nbsp;<span class="tok-punc">&lt;name&gt;</span>John<span class="tok-punc">&lt;/name&gt;</span><br><span class="tok-punc">&lt;/user&gt;</span></div></div>
+  </div>
+</div>
+
+<!-- CSV TO JSON -->
+<div class="page" id="csv">
+  <div class="tool-head"><div class="tool-icon" style="background:#F0FDF4;">🔀</div><h1>CSV to JSON</h1></div>
+  <p class="lede">Convert CSV spreadsheet data into structured JSON.</p>
+  <div class="toolbar"><div class="btn-group"><button class="btn btn-primary">Convert</button><button class="btn">Copy</button></div></div>
+  <div class="panels">
+    <div class="panel"><div class="panel-header">CSV Input</div><div class="code-area mono">name,age<br>John,30</div></div>
+    <div class="panel"><div class="panel-header">JSON Output</div><div class="code-area mono">[<br>&nbsp;&nbsp;<span class="tok-punc">{</span> <span class="tok-key">"name"</span><span class="tok-punc">:</span> <span class="tok-str">"John"</span>, <span class="tok-key">"age"</span><span class="tok-punc">:</span> <span class="tok-num">30</span> <span class="tok-punc">}</span><br>]</div></div>
+  </div>
+</div>
+
+<!-- BASE64 -->
+<div class="page" id="base64">
+  <div class="tool-head"><div class="tool-icon" style="background:#EFF6FF;">🔐</div><h1>Base64 Encoder / Decoder</h1></div>
+  <p class="lede">Encode text to Base64 or decode Base64 back to plain text.</p>
+  <div class="toolbar"><div class="btn-group"><button class="btn btn-primary">Encode</button><button class="btn">Decode</button><button class="btn">Copy</button></div></div>
+  <div class="panels">
+    <div class="panel"><div class="panel-header">Plain Text</div><div class="code-area mono">Hello World</div></div>
+    <div class="panel"><div class="panel-header">Base64</div><div class="code-area mono">SGVsbG8gV29ybGQ=</div></div>
+  </div>
+</div>
+
+<!-- JWT DECODER -->
+<div class="page" id="jwt">
+  <div class="tool-head"><div class="tool-icon" style="background:#FDF4FF;">🔑</div><h1>JWT Decoder</h1></div>
+  <p class="lede">Decode a JWT token to inspect its header and payload.</p>
+  <div class="toolbar"><div class="btn-group"><button class="btn btn-primary">Decode</button><button class="btn">Clear</button></div></div>
+  <div class="panels">
+    <div class="panel"><div class="panel-header">Token</div><div class="code-area mono" style="word-break:break-all; color:var(--text-muted);">eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiSm9obiJ9.abc123</div></div>
+    <div class="panel"><div class="panel-header">Decoded Payload</div><div class="code-area mono"><span class="tok-punc">{</span> <span class="tok-key">"user"</span><span class="tok-punc">:</span> <span class="tok-str">"John"</span> <span class="tok-punc">}</span></div></div>
+  </div>
+</div>
+
+<!-- ABOUT (freelancer style, no company entity) -->
+<div class="page narrow" id="about">
+  <a href="#" class="back-link">← Back to json.</a>
+  <h1>About json.</h1>
+  <p class="lede">Free, fast, privacy-first developer tools — built and maintained independently.</p>
+  <div class="about-block"><p>json. is an independent project — not a registered company. It's built and maintained by a single developer who wanted a JSON tool that doesn't upload your data anywhere. Everything runs in your browser, full stop.</p></div>
+  <div class="stats-row">
+    <div class="stat"><div class="num">100%</div><div class="label">Client-side processing</div></div>
+    <div class="stat"><div class="num">0</div><div class="label">Data stored on servers</div></div>
+    <div class="stat"><div class="num">Free</div><div class="label">Forever, no sign-up</div></div>
+  </div>
+  <div class="maker-row">
+    <div class="maker-avatar"></div>
+    <div><h4>Built by an independent developer</h4><p>Reach out anytime via the Contact page.</p></div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="page narrow" id="contact">
+  <a href="#" class="back-link">← Back to json.</a>
+  <h1>Contact</h1>
+  <p class="lede">Questions, feedback, or found a bug? Get in touch.</p>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <a href="#"><span class="icon-badge">✉️</span> hello@yourproject.example</a>
+      <a href="#"><span class="icon-badge">🐦</span> @yourhandle</a>
+      <a href="#"><span class="icon-badge">💬</span> Report an issue on GitHub</a>
+    </div>
+    <form>
+      <div><label>Name</label><input type="text" placeholder="Your name"></div>
+      <div><label>Email</label><input type="email" placeholder="you@example.com"></div>
+      <div><label>Message</label><textarea placeholder="How can I help?"></textarea></div>
+      <button type="button" class="submit-btn">Send Message</button>
+    </form>
+  </div>
+</div>
+
+<!-- PRIVACY -->
+<div class="page narrow" id="privacy">
+  <a href="#" class="back-link">← Back to json.</a>
+  <h1>Privacy Policy</h1>
+  <p class="legal-updated">Last updated: August 1, 2026</p>
+  <div class="legal-section"><h2>1. Overview</h2><p>json. is an independently run project. This page explains how data is handled when you use these tools — in short, it isn't collected.</p></div>
+  <div class="legal-section"><h2>2. Data We Don't Collect</h2><p>Any content you paste or upload is processed entirely in your browser and is never sent to a server.</p></div>
+  <div class="legal-section"><h2>3. Analytics & Cookies</h2><p>Basic, privacy-respecting analytics may be used to understand site traffic. Manage preferences via the cookie banner.</p></div>
+  <div class="legal-section"><h2>4. Contact</h2><p>Questions? Reach out via the Contact page.</p></div>
+</div>
+
+<!-- TERMS -->
+<div class="page narrow" id="terms">
+  <a href="#" class="back-link">← Back to json.</a>
+  <h1>Terms &amp; Conditions</h1>
+  <p class="legal-updated">Last updated: August 1, 2026</p>
+  <div class="legal-section"><h2>1. Use of This Site</h2><p>These tools are provided free of charge, "as is," by an independent developer, with no warranty of any kind.</p></div>
+  <div class="legal-section"><h2>2. No Liability</h2><p>While every effort is made to keep these tools accurate and reliable, I'm not liable for any loss or damage arising from their use.</p></div>
+  <div class="legal-section"><h2>3. Changes</h2><p>These terms may be updated occasionally; continued use of the site means you accept the current version.</p></div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo"><div class="mark"><svg width="16" height="16" viewBox="0 0 32 32"><rect x="9" y="6" width="16" height="4" rx="1.5" fill="white" opacity="0.5"/><rect x="7" y="12" width="18" height="5" rx="1.5" fill="white" opacity="0.85"/><rect x="9" y="19" width="16" height="6" rx="1.5" fill="#FBBF24"/></svg></div>json<span class="dot">.</span></a>
+      <p>Free, browser-based developer tools. No sign-up, no data collection.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Tools</h4>
+      <a href="#" onclick="showPage('formatter',this); return false;">JSON Formatter</a>
+      <a href="#" onclick="showPage('validator',this); return false;">JSON Validator</a>
+      <a href="#" onclick="showPage('minifier',this); return false;">JSON Minifier</a>
+      <a href="#" onclick="showPage('viewer',this); return false;">JSON Viewer</a>
+    </div>
+    <div class="footer-col">
+      <h4>More Tools</h4>
+      <a href="#" onclick="showPage('xml',this); return false;">XML Formatter</a>
+      <a href="#" onclick="showPage('csv',this); return false;">CSV to JSON</a>
+      <a href="#" onclick="showPage('base64',this); return false;">Base64 Encoder</a>
+      <a href="#" onclick="showPage('jwt',this); return false;">JWT Decoder</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#" onclick="showPage('about',this); return false;">About</a>
+      <a href="#" onclick="showPage('contact',this); return false;">Contact Us</a>
+      <a href="#" onclick="showPage('privacy',this); return false;">Privacy Policy</a>
+      <a href="#" onclick="showPage('terms',this); return false;">Terms</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 json. — Built independently. All rights reserved.</div>
+</footer>
+
+<script>
+  function showPage(id, link) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+  function toggleTheme() {
+    const isDark = document.body.classList.toggle('dark');
+    document.getElementById('themeBtn').textContent = isDark ? '☀️' : '🌙';
+  }
+  function toggleFullscreen(btn) {
+    const panel = btn.closest('.panel');
+    const isFull = panel.classList.toggle('is-fullscreen');
+    document.body.classList.toggle('panel-open', isFull);
+    btn.textContent = isFull ? '✕' : '⤢';
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const open = document.querySelector('.panel.is-fullscreen');
+      if (open) toggleFullscreen(open.querySelector('.expand-btn'));
+    }
+  });
+</script>
+</body>
+</html>
