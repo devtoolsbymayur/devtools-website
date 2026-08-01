@@ -1,0 +1,26 @@
+app/admin-secure-portal-x051908/(panel)/ads/page.tsx
+  s_fb59fe56a0ff38::t_1e5d567ea2acdc 36-43
+app/layout.tsx
+  s_fb59fe56a0ff38::t_9066ebd186b9ed 75-78
+  s_fb59fe56a0ff38::t_dd617b464eff8b 11,17
+  s_fb59fe56a0ff38::t_f87bc4c6e921bd 18
+components/AdSenseScript.tsx
+  s_fb59fe56a0ff38::t_176ad8aadff9cc 6
+  s_fb59fe56a0ff38::t_88286c3f596b40 7,20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.19",
+  "base_commit_sha": "70a596d94a8cea8de815afff81554e969e5df751",
+  "prompts": {},
+  "sessions": {
+    "s_fb59fe56a0ff38": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "447d0560-7137-4afd-ac8d-5ff8fedcea8c",
+        "model": "default"
+      },
+      "human_author": "Mayurdhvajsinh Vaghela <mayurdhvaj@kitchen365.com>"
+    }
+  }
+}
