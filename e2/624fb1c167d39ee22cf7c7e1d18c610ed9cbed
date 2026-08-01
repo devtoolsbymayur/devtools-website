@@ -1,0 +1,20 @@
+components/AdSenseScript.tsx
+  s_fb59fe56a0ff38::t_70fb376839fb98 5-6
+  s_fb59fe56a0ff38::t_8a2dee62c0defd 14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.19",
+  "base_commit_sha": "e2624fb1c167d39ee22cf7c7e1d18c610ed9cbed",
+  "prompts": {},
+  "sessions": {
+    "s_fb59fe56a0ff38": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "447d0560-7137-4afd-ac8d-5ff8fedcea8c",
+        "model": "default"
+      },
+      "human_author": "Mayurdhvajsinh Vaghela <mayurdhvaj@kitchen365.com>"
+    }
+  }
+}
