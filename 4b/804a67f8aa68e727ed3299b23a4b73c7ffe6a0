@@ -1,0 +1,21 @@
+app/robots.ts
+  s_fb59fe56a0ff38::t_d0463ed3c96d5e 14-18
+app/layout.tsx
+  s_fb59fe56a0ff38::t_e8c31752f0812f 115-118
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.19",
+  "base_commit_sha": "4b804a67f8aa68e727ed3299b23a4b73c7ffe6a0",
+  "prompts": {},
+  "sessions": {
+    "s_fb59fe56a0ff38": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "447d0560-7137-4afd-ac8d-5ff8fedcea8c",
+        "model": "default"
+      },
+      "human_author": "Mayurdhvajsinh Vaghela <mayurdhvaj@kitchen365.com>"
+    }
+  }
+}
