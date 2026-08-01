@@ -1,0 +1,50 @@
+app/admin-secure-portal-x051908/(panel)/page.tsx
+  s_fb59fe56a0ff38::t_35cdf9248e1530 5-6,14-45,47-65,70,106-116,131,155
+app/admin-secure-portal-x051908/(panel)/error.tsx
+  s_fb59fe56a0ff38::t_aa14850667dcdd 1-30
+lib/adsense.ts
+  s_fb59fe56a0ff38::t_f576a03c6b8adf 1-13
+components/json/JsonTree.tsx
+  s_fb59fe56a0ff38::t_9d79ab54c595e4 160-161,180-183
+  s_fb59fe56a0ff38::t_86e027337f71dd 110-112,114-115,118-121
+  s_fb59fe56a0ff38::t_4edf800b38d71a 116-117
+app/privacy/page.tsx
+  s_fb59fe56a0ff38::t_000134610d03b7 3-4,8,11-12,21-22,26-27,32,35-39,42-43,49,51-73,75-77,82-90,92-93,98-100,102-106,111,113-126,131-133,135-139,144,146-149,154,156-162,167,169-172,177,179-197,199-203
+app/layout.tsx
+  s_fb59fe56a0ff38::t_f0ae8d04ac5f67 4
+  s_fb59fe56a0ff38::t_8fb7e112be621e 2,10,79-98
+  s_fb59fe56a0ff38::t_960220975f0e9a 110
+app/admin-secure-portal-x051908/(panel)/ads/page.tsx
+  s_fb59fe56a0ff38::t_6d3bce0e505979 36-41
+middleware.ts
+  s_fb59fe56a0ff38::t_376bdaef5da370 8-9,19-21,38-41,44-46
+components/AdSenseScript.tsx
+  s_fb59fe56a0ff38::t_df9cc11c1cc293 1-21
+lib/prisma.ts
+  s_fb59fe56a0ff38::t_b0b844e58c5ab4 30-32
+prisma/schema.prisma
+  s_fb59fe56a0ff38::t_eb5a4562ee0e42 8-12
+lib/seo.ts
+  s_fb59fe56a0ff38::t_11f82009b2c222 37-39,42-59,61,67-69,75
+  s_fb59fe56a0ff38::t_3bc9bc9e2890c7 2,15-31,34-36,40-41,60,62-66,70-74,76-98
+app/terms/page.tsx
+  s_fb59fe56a0ff38::t_a71a54bfff737c 2-4,8,11-13,17,21,23-31,34-42,44-52,54-102
+public/ads.txt
+  s_fb59fe56a0ff38::t_b127be9c9a953e 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.19",
+  "base_commit_sha": "666ffed3c7ec8faa23b9b4947e92adb974931f09",
+  "prompts": {},
+  "sessions": {
+    "s_fb59fe56a0ff38": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "447d0560-7137-4afd-ac8d-5ff8fedcea8c",
+        "model": "default"
+      },
+      "human_author": "Mayurdhvajsinh Vaghela <mayurdhvaj@kitchen365.com>"
+    }
+  }
+}
