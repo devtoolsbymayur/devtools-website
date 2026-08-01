@@ -5,6 +5,8 @@ import { ADMIN_BASE_PATH } from "@/lib/admin-path";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-pathname", pathname);
 
   // Old /admin routes — hide existence
   if (pathname === "/admin" || pathname.startsWith("/admin/")) {
@@ -14,7 +16,9 @@ export async function middleware(request: NextRequest) {
   const loginPath = `${ADMIN_BASE_PATH}/login`;
 
   if (pathname === loginPath || pathname.startsWith(`${loginPath}/`)) {
-    return NextResponse.next();
+    return NextResponse.next({
+      request: { headers: requestHeaders },
+    });
   }
 
   if (
@@ -31,9 +35,15 @@ export async function middleware(request: NextRequest) {
       login.searchParams.set("callbackUrl", pathname);
       return NextResponse.redirect(login);
     }
+
+    return NextResponse.next({
+      request: { headers: requestHeaders },
+    });
   }
 
-  return NextResponse.next();
+  return NextResponse.next({
+    request: { headers: requestHeaders },
+  });
 }
 
 export const config = {

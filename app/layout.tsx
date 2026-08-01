@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Geist, JetBrains_Mono } from "next/font/google";
+import { AdSenseScript } from "@/components/AdSenseScript";
 import { AnalyticsBeacon } from "@/components/AnalyticsBeacon";
 import { ConsentBanner } from "@/components/ConsentBanner";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { ThemeScript } from "@/components/ThemeScript";
+import { ADMIN_BASE_PATH } from "@/lib/admin-path";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE } from "@/lib/constants";
 import { PRIMARY_KEYWORDS } from "@/lib/seo";
 import { getPublicTools, splitTools } from "@/lib/site-config";
@@ -73,6 +76,26 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = (await headers()).get("x-pathname") ?? "";
+  const isAdmin =
+    pathname === ADMIN_BASE_PATH || pathname.startsWith(`${ADMIN_BASE_PATH}/`);
+
+  // Admin shell has its own chrome — skip public nav DB fetch there.
+  if (isAdmin) {
+    return (
+      <html
+        lang="en"
+        suppressHydrationWarning
+        className={`${geistSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      >
+        <body className="flex min-h-full flex-col bg-bg text-text">
+          <ThemeScript />
+          <main className="flex-1">{children}</main>
+        </body>
+      </html>
+    );
+  }
+
   const tools = await getPublicTools();
   const { nav, more, footerTools } = splitTools(tools);
 
@@ -84,6 +107,7 @@ export default async function RootLayout({
     >
       <body className="flex min-h-full flex-col bg-bg text-text">
         <ThemeScript />
+        <AdSenseScript />
         <Header navItems={nav.map((t) => ({ href: t.href, label: t.label }))} />
         <main className="flex-1">{children}</main>
         <Footer

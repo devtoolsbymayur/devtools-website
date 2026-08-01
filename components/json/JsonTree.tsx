@@ -107,9 +107,18 @@ export function JsonTree({ data, search }: Props) {
     const el = containerRef.current;
     if (!el) return;
 
+    // Use content-box height (clientHeight minus padding). Setting the list to
+    // full clientHeight inside a padded, height:auto parent grows the parent
+    // by the padding each frame → ResizeObserver feedback loop.
     const update = () => {
-      const next = el.clientHeight;
-      if (next > 0) setListHeight(next);
+      const style = getComputedStyle(el);
+      const padY =
+        (Number.parseFloat(style.paddingTop) || 0) +
+        (Number.parseFloat(style.paddingBottom) || 0);
+      const next = Math.max(0, Math.floor(el.clientHeight - padY));
+      if (next > 0) {
+        setListHeight((prev) => (Math.abs(prev - next) > 1 ? next : prev));
+      }
     };
 
     update();
@@ -148,8 +157,8 @@ export function JsonTree({ data, search }: Props) {
   };
 
   return (
-    <div className="flex h-full min-h-[320px] flex-col">
-      <div className="flex items-center gap-2 border-b border-border px-3 py-2">
+    <div className="flex h-full min-h-[320px] flex-col overflow-hidden">
+      <div className="flex shrink-0 items-center gap-2 border-b border-border px-3 py-2">
         <button
           type="button"
           onClick={expandAll}
@@ -168,12 +177,14 @@ export function JsonTree({ data, search }: Props) {
           {nodes.length} nodes
         </span>
       </div>
-      <div ref={containerRef} className="min-h-0 flex-1 px-2 py-2">
+      <div
+        ref={containerRef}
+        className="min-h-0 flex-1 overflow-hidden px-2 py-2"
+      >
         {nodes.length === 0 ? (
           <p className="p-3 text-sm text-text-muted">No matches.</p>
         ) : (
           <List
-            key={`tree-${expanded.size}-${nodes.length}`}
             rowComponent={TreeRow}
             rowCount={nodes.length}
             rowHeight={28}

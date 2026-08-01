@@ -33,12 +33,12 @@ export default async function AdminAdsPage() {
         <strong>No</strong> to hide it completely.
       </p>
       <p className="mt-2 rounded-[var(--radius)] border border-border bg-bg px-3 py-2 text-xs text-text-muted">
-        <strong className="text-text">Localhost note:</strong> Google AdSense
-        cannot serve real ads on <code>localhost</code>. Dev/staging shows a
-        dashed placeholder for layout checks. After you deploy on a public HTTPS
-        domain and AdSense is approved, paste the unit snippet below — production
-        will render the real <code>&lt;ins class=&quot;adsbygoogle&quot;&gt;</code>{" "}
-        ad.
+        <strong className="text-text">Site-wide AdSense code</strong> (head
+        script + <code>ads.txt</code>) is configured in the app env — not here.
+        This page is only for <strong>ad unit</strong> placements. Localhost
+        shows dashed placeholders; production shows real units after AdSense
+        approval when you paste a unit snippet with{" "}
+        <code>data-ad-client</code> + <code>data-ad-slot</code>.
       </p>
 
       <div className="mt-6 space-y-4">
