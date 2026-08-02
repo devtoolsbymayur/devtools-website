@@ -1,5 +1,6 @@
 import type { Prisma } from "@prisma/client";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
+import { CACHE_TAGS } from "@/lib/site-config";
 import { requirePrisma } from "@/lib/admin";
 
 async function saveSeo(formData: FormData) {
@@ -22,6 +23,7 @@ async function saveSeo(formData: FormData) {
     where: { id },
     data: { metaTitle, metaDescription, faqItems },
   });
+  revalidateTag(CACHE_TAGS.seo, "max");
   revalidatePath("/admin-secure-portal-x051908/seo");
   revalidatePath("/");
 }

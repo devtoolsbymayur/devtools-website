@@ -1,5 +1,6 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { requirePrisma } from "@/lib/admin";
+import { CACHE_TAGS } from "@/lib/site-config";
 
 async function saveAd(formData: FormData) {
   "use server";
@@ -12,6 +13,7 @@ async function saveAd(formData: FormData) {
     where: { id },
     data: { enabled, adUnitCode },
   });
+  revalidateTag(CACHE_TAGS.ads, "max");
   revalidatePath("/admin-secure-portal-x051908/ads");
   revalidatePath("/admin-secure-portal-x051908");
   revalidatePath("/", "layout");

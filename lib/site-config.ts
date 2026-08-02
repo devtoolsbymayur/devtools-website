@@ -1,3 +1,5 @@
+import { unstable_cache } from "next/cache";
+import { cache } from "react";
 import {
   FAQ_ITEMS,
   FOOTER_MORE_TOOLS,
@@ -36,6 +38,12 @@ export type PublicSeo = {
   faqItems: { question: string; answer: string }[];
 };
 
+export const CACHE_TAGS = {
+  tools: "public-tools",
+  ads: "public-ads",
+  seo: "public-seo",
+} as const;
+
 const NAV_KEYS = new Set([
   "json-formatter",
   "json-validator",
@@ -52,45 +60,7 @@ const MORE_KEYS = new Set([
   "timestamp-converter",
 ]);
 
-export async function getAdSlots(): Promise<PublicAdSlot[]> {
-  const prisma = getPrisma();
-  if (!prisma) return [];
-  try {
-    return await prisma.adSlot.findMany({
-      select: {
-        placement: true,
-        label: true,
-        enabled: true,
-        adUnitCode: true,
-      },
-    });
-  } catch {
-    return [];
-  }
-}
-
-export async function getAdSlot(
-  placement: AdPlacement
-): Promise<PublicAdSlot | null> {
-  const slots = await getAdSlots();
-  return slots.find((s) => s.placement === placement) ?? null;
-}
-
-export async function getPublicTools(): Promise<PublicTool[]> {
-  const prisma = getPrisma();
-  if (!prisma) {
-    return fallbackTools();
-  }
-  try {
-    const tools = await prisma.toolConfig.findMany({
-      orderBy: { displayOrder: "asc" },
-    });
-    if (tools.length === 0) return fallbackTools();
-    return tools;
-  } catch {
-    return fallbackTools();
-  }
-}
+const REVALIDATE_SECONDS = 300;
 
 function fallbackTools(): PublicTool[] {
   return [
@@ -122,6 +92,103 @@ function fallbackTools(): PublicTool[] {
   ];
 }
 
+const loadAdSlots = unstable_cache(
+  async (): Promise<PublicAdSlot[]> => {
+    const prisma = getPrisma();
+    if (!prisma) return [];
+    try {
+      return await prisma.adSlot.findMany({
+        select: {
+          placement: true,
+          label: true,
+          enabled: true,
+          adUnitCode: true,
+        },
+      });
+    } catch {
+      return [];
+    }
+  },
+  ["public-ad-slots"],
+  { revalidate: REVALIDATE_SECONDS, tags: [CACHE_TAGS.ads] }
+);
+
+const loadPublicTools = unstable_cache(
+  async (): Promise<PublicTool[]> => {
+    const prisma = getPrisma();
+    if (!prisma) return fallbackTools();
+    try {
+      const tools = await prisma.toolConfig.findMany({
+        orderBy: { displayOrder: "asc" },
+      });
+      if (tools.length === 0) return fallbackTools();
+      return tools;
+    } catch {
+      return fallbackTools();
+    }
+  },
+  ["public-tools"],
+  { revalidate: REVALIDATE_SECONDS, tags: [CACHE_TAGS.tools] }
+);
+
+const loadHomeSeo = unstable_cache(
+  async (): Promise<PublicSeo> => {
+    const fallback: PublicSeo = {
+      metaTitle: SITE_TITLE,
+      metaDescription: SITE_DESCRIPTION,
+      faqItems: FAQ_ITEMS.map((f) => ({
+        question: f.question,
+        answer: f.answer,
+      })),
+    };
+
+    const prisma = getPrisma();
+    if (!prisma) return fallback;
+
+    try {
+      const row = await prisma.seoContent.findUnique({
+        where: { pageKey: "home" },
+      });
+      if (!row) return fallback;
+
+      const faqItems = Array.isArray(row.faqItems)
+        ? (row.faqItems as { question?: string; answer?: string }[])
+            .filter((i) => i?.question && i?.answer)
+            .map((i) => ({
+              question: String(i.question),
+              answer: String(i.answer),
+            }))
+        : [];
+
+      return {
+        metaTitle: row.metaTitle || fallback.metaTitle,
+        metaDescription: row.metaDescription || fallback.metaDescription,
+        faqItems: faqItems.length > 0 ? faqItems : fallback.faqItems,
+      };
+    } catch {
+      return fallback;
+    }
+  },
+  ["public-home-seo"],
+  { revalidate: REVALIDATE_SECONDS, tags: [CACHE_TAGS.seo] }
+);
+
+/** Request-deduped + cross-request cached (5 min / tag revalidate). */
+export const getAdSlots = cache(async (): Promise<PublicAdSlot[]> => {
+  return loadAdSlots();
+});
+
+export async function getAdSlot(
+  placement: AdPlacement
+): Promise<PublicAdSlot | null> {
+  const slots = await getAdSlots();
+  return slots.find((s) => s.placement === placement) ?? null;
+}
+
+export const getPublicTools = cache(async (): Promise<PublicTool[]> => {
+  return loadPublicTools();
+});
+
 export function splitTools(tools: PublicTool[]) {
   const visible = tools.filter((t) => t.status !== "hidden");
   const nav = visible.filter((t) => NAV_KEYS.has(t.toolKey));
@@ -140,40 +207,6 @@ export function splitTools(tools: PublicTool[]) {
   return { nav, more, related, footerTools };
 }
 
-export async function getHomeSeo(): Promise<PublicSeo> {
-  const prisma = getPrisma();
-  const fallback: PublicSeo = {
-    metaTitle: SITE_TITLE,
-    metaDescription: SITE_DESCRIPTION,
-    faqItems: FAQ_ITEMS.map((f) => ({
-      question: f.question,
-      answer: f.answer,
-    })),
-  };
-
-  if (!prisma) return fallback;
-
-  try {
-    const row = await prisma.seoContent.findUnique({
-      where: { pageKey: "home" },
-    });
-    if (!row) return fallback;
-
-    const faqItems = Array.isArray(row.faqItems)
-      ? (row.faqItems as { question?: string; answer?: string }[])
-          .filter((i) => i?.question && i?.answer)
-          .map((i) => ({
-            question: String(i.question),
-            answer: String(i.answer),
-          }))
-      : [];
-
-    return {
-      metaTitle: row.metaTitle || fallback.metaTitle,
-      metaDescription: row.metaDescription || fallback.metaDescription,
-      faqItems: faqItems.length > 0 ? faqItems : fallback.faqItems,
-    };
-  } catch {
-    return fallback;
-  }
-}
+export const getHomeSeo = cache(async (): Promise<PublicSeo> => {
+  return loadHomeSeo();
+});

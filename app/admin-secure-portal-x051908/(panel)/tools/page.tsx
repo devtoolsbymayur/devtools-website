@@ -1,5 +1,6 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { requirePrisma } from "@/lib/admin";
+import { CACHE_TAGS } from "@/lib/site-config";
 
 async function saveTool(formData: FormData) {
   "use server";
@@ -15,6 +16,7 @@ async function saveTool(formData: FormData) {
       displayOrder: Number.isFinite(displayOrder) ? displayOrder : 0,
     },
   });
+  revalidateTag(CACHE_TAGS.tools, "max");
   revalidatePath("/admin-secure-portal-x051908/tools");
   revalidatePath("/admin-secure-portal-x051908");
   revalidatePath("/", "layout");
