@@ -1,0 +1,65 @@
+app/(site)/json-viewer/page.tsx
+  s_fb59fe56a0ff38::t_cbc7a45acf997c 1,5,28,36-45,47,50
+app/sitemap.ts
+  s_fb59fe56a0ff38::t_727bccc5ab5b36 4
+app/(site)/url-encoder/page.tsx
+  s_fb59fe56a0ff38::t_df7a59ef223981 2,4-7
+app/admin-secure-portal-x051908/(panel)/ads/page.tsx
+  s_fb59fe56a0ff38::t_9eb4235331c579 38-44
+app/(site)/json-validator/page.tsx
+  s_fb59fe56a0ff38::t_625db0116c0a0e 1,5,28,36-45,47
+app/(site)/layout.tsx
+  s_fb59fe56a0ff38::t_584777fbfcb9c9 21-25
+app/(site)/csv-to-json/page.tsx
+  s_fb59fe56a0ff38::t_a36d38f8354478 2,4-7
+app/(site)/xml-formatter/page.tsx
+  s_fb59fe56a0ff38::t_253a76aa3661ed 2,4-7
+components/ToolFaqLd.tsx
+  s_fb59fe56a0ff38::t_0550c2a7a503d8 1-33
+components/Footer.tsx
+  s_fb59fe56a0ff38::t_e4a8f1c752875f 10,30,33-37,56-58
+components/AdSenseScript.tsx
+  s_fb59fe56a0ff38::t_31bff81b82f686 4-6,8,10,12-18
+app/layout.tsx
+  s_fb59fe56a0ff38::t_55b9beb0ce7d82 3
+  s_fb59fe56a0ff38::t_3b9be1792ec7f1 68,85-87
+components/ConsentBanner.tsx
+  s_fb59fe56a0ff38::t_93c29a86d78da6 36-39
+components/RelatedTools.tsx
+  s_fb59fe56a0ff38::t_89a63271e29e1f 4-8,11-17,19,30
+app/(site)/privacy/page.tsx
+  s_fb59fe56a0ff38::t_8a7f4fe5e69852 105-109,116-119,127-131
+lib/tool-faq.ts
+  s_fb59fe56a0ff38::t_535c407e9994f7 1-70
+app/robots.ts
+  s_fb59fe56a0ff38::t_b1d2ef58131f2b 12-18,20,25-26
+  s_fb59fe56a0ff38::t_e19836305b1479 27-28
+app/(site)/page.tsx
+  s_fb59fe56a0ff38::t_8d78eb6c5208a4 58
+app/(site)/json-minifier/page.tsx
+  s_fb59fe56a0ff38::t_ba37e1630cea6a 1,5,28,37-46,48
+app/(site)/timestamp-converter/page.tsx
+  s_fb59fe56a0ff38::t_1baee92f6c6a78 2,4-7
+components/ToolPage.tsx
+  s_fb59fe56a0ff38::t_d667407c88e145 10,16,35
+lib/coming-soon.ts
+  s_fb59fe56a0ff38::t_67626f34cad5e3 1-17
+components/SEOContent.tsx
+  s_fb59fe56a0ff38::t_9877c56a9438ff 125,128,136
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.19",
+  "base_commit_sha": "74c17b2edf0a30af4722afb46bb0891c39f4d6f1",
+  "prompts": {},
+  "sessions": {
+    "s_fb59fe56a0ff38": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "447d0560-7137-4afd-ac8d-5ff8fedcea8c",
+        "model": "default"
+      },
+      "human_author": "Mayurdhvajsinh Vaghela <mayurdhvaj@kitchen365.com>"
+    }
+  }
+}
