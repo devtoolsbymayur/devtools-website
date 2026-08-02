@@ -1,10 +1,10 @@
 import { ComingSoon } from "@/components/ComingSoon";
-import type { Metadata } from "next";
+import { comingSoonMetadata } from "@/lib/coming-soon";
 
-export const metadata: Metadata = {
-  title: "CSV to JSON",
-  description: "Convert CSV to JSON online — coming soon.",
-};
+export const metadata = comingSoonMetadata(
+  "CSV to JSON",
+  "Convert CSV to JSON online — coming soon."
+);
 
 export default function CsvToJsonPage() {
   return (

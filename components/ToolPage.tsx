@@ -7,11 +7,13 @@ export function ToolPage({
   mode,
   title,
   subtitle,
+  currentPath,
   children,
 }: {
   mode: JsonToolMode;
   title: string;
   subtitle: string;
+  currentPath?: string;
   children?: React.ReactNode;
 }) {
   return (
@@ -30,7 +32,7 @@ export function ToolPage({
 
         <AdSlot placement="between-tool-seo" className="mt-10" />
         {children}
-        <RelatedTools />
+        <RelatedTools currentPath={currentPath} />
       </div>
     </div>
   );

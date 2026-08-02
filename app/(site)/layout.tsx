@@ -1,5 +1,4 @@
 import { AnalyticsBeacon } from "@/components/AnalyticsBeacon";
-import { ConsentAdSense } from "@/components/ConsentAdSense";
 import { ConsentBanner } from "@/components/ConsentBanner";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -15,12 +14,15 @@ export default async function SiteLayout({
 
   return (
     <>
-      <ConsentAdSense />
       <Header navItems={nav.map((t) => ({ href: t.href, label: t.label }))} />
       <main className="flex-1">{children}</main>
       <Footer
         tools={footerTools.map((t) => ({ href: t.href, label: t.label }))}
-        moreTools={more.map((t) => ({ href: t.href, label: t.label }))}
+        moreTools={more.map((t) => ({
+          href: t.href,
+          label: t.label,
+          soon: t.status === "coming-soon",
+        }))}
       />
       <ConsentBanner />
       <AnalyticsBeacon />

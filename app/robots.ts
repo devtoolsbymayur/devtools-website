@@ -9,11 +9,21 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/admin/", `${ADMIN_BASE_PATH}`, `${ADMIN_BASE_PATH}/`, "/api/"],
+        disallow: [
+          "/admin",
+          "/admin/",
+          `${ADMIN_BASE_PATH}`,
+          `${ADMIN_BASE_PATH}/`,
+          "/api/",
+        ],
       },
-      // AdSense ownership / ad crawler
+      // AdSense crawlers — keep public pages crawlable
       {
         userAgent: "Mediapartners-Google",
+        allow: "/",
+      },
+      {
+        userAgent: "AdsBot-Google",
         allow: "/",
       },
     ],

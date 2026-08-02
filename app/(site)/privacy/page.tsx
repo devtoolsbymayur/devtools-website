@@ -102,20 +102,21 @@ export default async function PrivacyPage() {
           </h2>
           <p>
             We use browser storage/cookies for essential preferences (theme and
-            consent). If you enable advertising later, third-party networks such
-            as Google AdSense may set their own cookies under their policies. You
-            can clear or block cookies in your browser; some preferences may
-            reset.
+            consent choice). If you click Accept on our consent banner, we may
+            also use cookies/storage for anonymous usage analytics and allow
+            advertising partners such as Google AdSense to set cookies under
+            their policies. Reject keeps essential preferences only. You can
+            clear or block cookies in your browser; some preferences may reset.
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-xl font-semibold text-text">Advertising</h2>
           <p>
-            Ad regions on the site are controlled from our admin panel. When an
-            ad unit is enabled and a valid network snippet is configured on a
-            live domain, that network may collect data according to its own
-            terms. Review{" "}
+            We use Google AdSense to show ads on this site after your site is
+            approved and ad units are enabled. Google may use cookies or similar
+            technologies to serve and measure ads, including personalized ads
+            where allowed. Review{" "}
             <a
               href="https://policies.google.com/technologies/ads"
               className="text-accent hover:underline"
@@ -123,9 +124,11 @@ export default async function PrivacyPage() {
               target="_blank"
             >
               Google Advertising Privacy &amp; Terms
-            </a>{" "}
-            if Google ads are shown. On local development we only show layout
-            placeholders — real ads are not served from localhost.
+            </a>
+            . Ad unit placements are managed from our admin panel. On local
+            development we only show layout placeholders — real ads are not
+            served from localhost. You can change or clear consent in your
+            browser storage for this site.
           </p>
         </section>
 

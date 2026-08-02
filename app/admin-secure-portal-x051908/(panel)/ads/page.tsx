@@ -35,14 +35,13 @@ export default async function AdminAdsPage() {
         <strong>No</strong> to hide it completely.
       </p>
       <p className="mt-2 rounded-[var(--radius)] border border-border bg-bg px-3 py-2 text-xs text-text-muted">
-        <strong className="text-text">Site ownership / head script</strong> is
-        NOT pasted here — it comes from env{" "}
-        <code>NEXT_PUBLIC_ADSENSE_CLIENT</code> + <code>public/ads.txt</code>{" "}
-        (already on the live site). This page is only for{" "}
-        <strong>ad unit</strong> snippets that include{" "}
-        <code>data-ad-client</code> + <code>data-ad-slot</code>. Pasting only
-        the <code>adsbygoogle.js?client=…</code> script here will show “Could
-        not parse” and will not verify ownership.
+        <strong className="text-text">Site-wide AdSense</strong> (head script +
+        meta + <code>ads.txt</code>) comes from env{" "}
+        <code>NEXT_PUBLIC_ADSENSE_CLIENT</code> — not this form. Paste only{" "}
+        <strong>ad unit</strong> snippets with <code>data-ad-client</code> +{" "}
+        <code>data-ad-slot</code>. Units render after the visitor accepts
+        cookies; the site script stays in <code>&lt;head&gt;</code> for AdSense
+        review.
       </p>
 
       <div className="mt-6 space-y-4">

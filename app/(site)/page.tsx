@@ -55,7 +55,7 @@ export default async function HomePage() {
               <SEOContent />
               <AdSlot placement="before-faq" className="mt-10" />
               <FAQ items={seo.faqItems} />
-              <RelatedTools />
+              <RelatedTools currentPath="/" />
             </div>
             {showSidebar ? (
               <div className="hidden lg:block">

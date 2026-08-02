@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
+import { AdSenseScript } from "@/components/AdSenseScript";
 import { ThemeScript } from "@/components/ThemeScript";
 import { getAdSenseClient } from "@/lib/adsense";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE } from "@/lib/constants";
@@ -64,7 +65,7 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
     shortcut: "/favicon.ico",
   },
-  // Ownership meta only — ads script loads after consent on the public site.
+  // AdSense ownership meta (script is also always injected in <head>).
   ...(adsenseClient
     ? { other: { "google-adsense-account": adsenseClient } }
     : {}),
@@ -81,6 +82,9 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
+      <head>
+        <AdSenseScript />
+      </head>
       <body className="flex min-h-full flex-col bg-bg text-text">
         <ThemeScript />
         {children}

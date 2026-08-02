@@ -1,10 +1,10 @@
 import { ComingSoon } from "@/components/ComingSoon";
-import type { Metadata } from "next";
+import { comingSoonMetadata } from "@/lib/coming-soon";
 
-export const metadata: Metadata = {
-  title: "XML Formatter",
-  description: "Format XML online — coming soon.",
-};
+export const metadata = comingSoonMetadata(
+  "XML Formatter",
+  "Format XML online — coming soon."
+);
 
 export default function XmlFormatterPage() {
   return (

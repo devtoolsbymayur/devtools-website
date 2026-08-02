@@ -122,8 +122,10 @@ export function SEOContent() {
 
 export function FAQ({
   items = FAQ_ITEMS,
+  heading = "JSON Format FAQ",
 }: {
   items?: readonly { question: string; answer: string }[];
+  heading?: string;
 }) {
   return (
     <section aria-labelledby="faq-heading" className="mt-12">
@@ -131,7 +133,7 @@ export function FAQ({
         id="faq-heading"
         className="text-2xl font-semibold tracking-tight text-text"
       >
-        JSON Format FAQ
+        {heading}
       </h2>
       <dl className="mt-6 space-y-4">
         {items.map((item) => (

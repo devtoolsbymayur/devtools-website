@@ -1,11 +1,22 @@
 import Link from "next/link";
 import { getPublicTools, splitTools } from "@/lib/site-config";
 
-export async function RelatedTools() {
+export async function RelatedTools({
+  currentPath,
+}: {
+  currentPath?: string;
+}) {
   const tools = await getPublicTools();
   const { related } = splitTools(tools);
+  const items = related
+    .filter((tool) => tool.href !== currentPath)
+    .sort((a, b) => {
+      const aLive = a.status === "live" ? 0 : 1;
+      const bLive = b.status === "live" ? 0 : 1;
+      return aLive - bLive || a.displayOrder - b.displayOrder;
+    });
 
-  if (related.length === 0) return null;
+  if (items.length === 0) return null;
 
   return (
     <section aria-labelledby="related-tools-heading" className="mt-12">
@@ -16,7 +27,7 @@ export async function RelatedTools() {
         Related Developer Tools
       </h2>
       <ul className="flex flex-wrap gap-2">
-        {related.map((tool) => (
+        {items.map((tool) => (
           <li key={tool.toolKey}>
             <Link
               href={tool.href}

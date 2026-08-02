@@ -1,10 +1,10 @@
 import { ComingSoon } from "@/components/ComingSoon";
-import type { Metadata } from "next";
+import { comingSoonMetadata } from "@/lib/coming-soon";
 
-export const metadata: Metadata = {
-  title: "Timestamp Converter",
-  description: "Convert Unix timestamps online — coming soon.",
-};
+export const metadata = comingSoonMetadata(
+  "Timestamp Converter",
+  "Convert Unix timestamps online — coming soon."
+);
 
 export default function TimestampConverterPage() {
   return (

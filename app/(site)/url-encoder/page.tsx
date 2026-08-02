@@ -1,10 +1,10 @@
 import { ComingSoon } from "@/components/ComingSoon";
-import type { Metadata } from "next";
+import { comingSoonMetadata } from "@/lib/coming-soon";
 
-export const metadata: Metadata = {
-  title: "URL Encoder",
-  description: "Encode and decode URLs online — coming soon.",
-};
+export const metadata = comingSoonMetadata(
+  "URL Encoder",
+  "Encode and decode URLs online — coming soon."
+);
 
 export default function UrlEncoderPage() {
   return (

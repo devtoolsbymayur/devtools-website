@@ -7,7 +7,7 @@ import {
   SITE_NAME,
 } from "@/lib/constants";
 
-type NavItem = { href: string; label: string };
+type NavItem = { href: string; label: string; soon?: boolean };
 
 function FooterColumn({
   title,
@@ -27,9 +27,14 @@ function FooterColumn({
           <li key={link.href}>
             <Link
               href={link.href}
-              className="text-sm text-text-muted transition-colors duration-150 hover:text-accent"
+              className="inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors duration-150 hover:text-accent"
             >
               {link.label}
+              {link.soon ? (
+                <span className="text-[10px] uppercase tracking-wide text-text-muted/80">
+                  soon
+                </span>
+              ) : null}
             </Link>
           </li>
         ))}
@@ -48,7 +53,9 @@ export function Footer({
   const year = new Date().getFullYear();
   const toolLinks = tools && tools.length > 0 ? tools : [...FOOTER_TOOLS];
   const moreLinks =
-    moreTools && moreTools.length > 0 ? moreTools : [...FOOTER_MORE_TOOLS];
+    moreTools && moreTools.length > 0
+      ? moreTools
+      : FOOTER_MORE_TOOLS.map((t) => ({ ...t, soon: true }));
 
   return (
     <footer className="mt-auto border-t border-border bg-surface">
