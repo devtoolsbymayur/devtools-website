@@ -1,0 +1,40 @@
+lib/prisma.ts
+  s_fb59fe56a0ff38::t_0764ba5ae3a9f8 11,13,16-17
+components/ConsentBanner.tsx
+  s_fb59fe56a0ff38::t_203f8df5f5fdeb 37-38
+prisma/schema.prisma
+  s_fb59fe56a0ff38::t_98ea7289345e0e 72-96
+app/api/analytics/view/route.ts
+  s_fb59fe56a0ff38::t_2dfdf02959726c 1-10,33-38,40-41,47,49,54-58,70-80,83-125
+components/admin/AdminShell.tsx
+  s_fb59fe56a0ff38::t_63d9ed16f898d1 8
+app/admin-secure-portal-x051908/(panel)/page.tsx
+  s_fb59fe56a0ff38::t_f1dbc756cd9008 42-50
+  s_fb59fe56a0ff38::t_9ff7d62b7bbd6f 4,8,11,19-20,25,58-59,82-91,95,100
+lib/constants.ts
+  s_fb59fe56a0ff38::t_4fc718ed94d9a0 22
+components/AnalyticsBeacon.tsx
+  s_fb59fe56a0ff38::t_46ceee5f249951 7-22,39-48
+lib/analytics.ts
+  s_fb59fe56a0ff38::t_031a532e8a98d1 1-109
+app/admin-secure-portal-x051908/(panel)/visitors/page.tsx
+  s_fb59fe56a0ff38::t_dfaeb074d755f2 1-273
+app/(site)/privacy/page.tsx
+  s_fb59fe56a0ff38::t_e82fb07bfe0237 58-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.19",
+  "base_commit_sha": "2762d8f7b4cf1025e1382cd272b191fc1bf32e09",
+  "prompts": {},
+  "sessions": {
+    "s_fb59fe56a0ff38": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "447d0560-7137-4afd-ac8d-5ff8fedcea8c",
+        "model": "default"
+      },
+      "human_author": "Mayurdhvajsinh Vaghela <mayurdhvaj@kitchen365.com>"
+    }
+  }
+}
