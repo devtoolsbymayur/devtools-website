@@ -19,6 +19,7 @@ export const STORAGE_KEYS = {
   input: "json-formatter-input",
   autoFormat: "json-formatter-auto-format",
   consent: "json-formatter-consent",
+  visitorId: "json-formatter-visitor-id",
 } as const;
 
 export const NAV_LINKS = [

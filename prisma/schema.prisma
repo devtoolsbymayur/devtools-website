@@ -69,3 +69,28 @@ model PageViewDaily {
   @@unique([date, path])
   @@index([date])
 }
+
+/** Consent-gated anonymous visitor stats (masked IP, no passwords/PII forms). */
+model SiteVisitor {
+  id          String   @id @default(cuid())
+  date        DateTime @db.Date
+  visitorKey  String
+  ipMasked    String   @default("")
+  country     String   @default("")
+  region      String   @default("")
+  city        String   @default("")
+  path        String   @default("/")
+  userAgent   String   @default("")
+  browser     String   @default("")
+  device      String   @default("")
+  language    String   @default("")
+  timezone    String   @default("")
+  hits        Int      @default(1)
+  firstSeenAt DateTime @default(now())
+  lastSeenAt  DateTime @default(now())
+
+  @@unique([date, visitorKey])
+  @@index([date])
+  @@index([lastSeenAt])
+  @@index([country])
+}

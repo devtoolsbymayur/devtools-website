@@ -8,10 +8,13 @@ function hasRequiredDelegates(client: PrismaClient): boolean {
   const c = client as unknown as {
     adminUser?: { findUnique?: unknown };
     pageViewDaily?: { aggregate?: unknown };
+    siteVisitor?: { count?: unknown };
   };
+  // Drop HMR/dev singletons that predate newly generated models.
   return (
     typeof c.adminUser?.findUnique === "function" &&
-    typeof c.pageViewDaily?.aggregate === "function"
+    typeof c.pageViewDaily?.aggregate === "function" &&
+    typeof c.siteVisitor?.count === "function"
   );
 }
 

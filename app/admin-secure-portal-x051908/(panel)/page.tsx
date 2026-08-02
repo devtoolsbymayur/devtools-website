@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { requirePrisma } from "@/lib/admin";
 import { adminPath } from "@/lib/admin-path";
+import { utcDayStart } from "@/lib/analytics";
 
 export default async function AdminDashboardPage() {
   const prisma = requirePrisma();
-  const today = new Date();
-  today.setUTCHours(0, 0, 0, 0);
+  const today = utcDayStart();
   const weekAgo = new Date(today);
   weekAgo.setUTCDate(weekAgo.getUTCDate() - 6);
+  const activeSince = new Date(Date.now() - 15 * 60 * 1000);
 
   let newContacts = 0;
   let totalContacts = 0;
@@ -15,11 +16,13 @@ export default async function AdminDashboardPage() {
   let enabledAds = 0;
   let todayViews = 0;
   let weekViews = 0;
+  let todayVisitors = 0;
+  let activeNow = 0;
   let topPaths: { path: string; views: number }[] = [];
   let loadError: string | null = null;
 
   try {
-    // Two small batches — Supabase transaction pooler handles concurrency poorly.
+    // Small batches — Supabase transaction pooler handles concurrency poorly.
     const [contactStats, toolCount] = await Promise.all([
       prisma.contactMessage.groupBy({
         by: ["status"],
@@ -36,6 +39,15 @@ export default async function AdminDashboardPage() {
         take: 200,
       }),
     ]);
+    const visitor = prisma.siteVisitor;
+    const [visitorToday, visitorActive] = visitor
+      ? await Promise.all([
+          visitor.count({ where: { date: today } }),
+          visitor.count({
+            where: { lastSeenAt: { gte: activeSince } },
+          }),
+        ])
+      : [0, 0];
 
     for (const row of contactStats) {
       totalContacts += row._count._all;
@@ -43,6 +55,8 @@ export default async function AdminDashboardPage() {
     }
     liveTools = toolCount;
     enabledAds = adCount;
+    todayVisitors = visitorToday;
+    activeNow = visitorActive;
 
     const pathTotals = new Map<string, number>();
     for (const row of viewRows) {
@@ -66,14 +80,24 @@ export default async function AdminDashboardPage() {
 
   const cards = [
     {
+      label: "Active now (15 min)",
+      value: activeNow,
+      href: adminPath("/visitors"),
+    },
+    {
+      label: "Unique visitors today",
+      value: todayVisitors,
+      href: adminPath("/visitors"),
+    },
+    {
       label: "Page views today",
       value: todayViews,
-      href: adminPath(),
+      href: adminPath("/visitors"),
     },
     {
       label: "Page views (7 days)",
       value: weekViews,
-      href: adminPath(),
+      href: adminPath("/visitors"),
     },
     {
       label: "New contact messages",

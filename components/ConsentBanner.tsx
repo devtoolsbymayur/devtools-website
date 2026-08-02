@@ -34,7 +34,8 @@ export function ConsentBanner() {
       <div className="mx-auto flex max-w-[1200px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-text-muted">
           We use cookies for essential preferences (theme, consent) and, if you
-          accept, analytics and ads. Your JSON is never uploaded.{" "}
+          accept, anonymous usage analytics (page, approximate location, device)
+          and ads. Your JSON is never uploaded.{" "}
           <a
             href="/privacy"
             className="text-accent underline-offset-2 hover:underline"

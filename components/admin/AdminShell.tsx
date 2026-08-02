@@ -5,6 +5,7 @@ import { ADMIN_BASE_PATH, adminPath } from "@/lib/admin-path";
 
 const NAV = [
   { href: adminPath(), label: "Dashboard" },
+  { href: adminPath("/visitors"), label: "Visitors" },
   { href: adminPath("/contacts"), label: "Contacts" },
   { href: adminPath("/ads"), label: "Ads" },
   { href: adminPath("/tools"), label: "Tools" },

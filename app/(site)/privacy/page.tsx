@@ -55,10 +55,12 @@ export default async function PrivacyPage() {
               we can reply.
             </li>
             <li>
-              <strong className="text-text">Basic usage signals</strong> — we
-              may record aggregated page-view counts (path + day) for our admin
-              dashboard, and standard server or host logs such as IP address,
-              user agent, and request timing for security and reliability.
+              <strong className="text-text">Usage analytics (opt-in)</strong> —
+              if you accept cookies, we may record page path, a masked IP,
+              approximate location (country/region/city from our host), browser
+              language/timezone, and device/browser type so we can see daily
+              visitors and active use in our admin dashboard. We do not store
+              the contents of the JSON editor from public tools.
             </li>
             <li>
               <strong className="text-text">Preference cookies</strong> — small
