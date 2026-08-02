@@ -116,7 +116,7 @@ export default async function AdminUsersPage({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  await requireAdmin();
+  // Auth enforced by (panel)/layout via requireAdmin (request-cached).
   const prisma = requirePrisma();
   const params = await searchParams;
 

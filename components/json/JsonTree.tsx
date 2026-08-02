@@ -157,7 +157,7 @@ export function JsonTree({ data, search }: Props) {
   };
 
   return (
-    <div className="flex h-full min-h-[320px] flex-col overflow-hidden">
+    <div className="flex h-full min-h-0 flex-col overflow-hidden">
       <div className="flex shrink-0 items-center gap-2 border-b border-border px-3 py-2">
         <button
           type="button"

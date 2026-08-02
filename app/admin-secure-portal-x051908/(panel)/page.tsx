@@ -2,8 +2,6 @@ import Link from "next/link";
 import { requirePrisma } from "@/lib/admin";
 import { adminPath } from "@/lib/admin-path";
 
-export const dynamic = "force-dynamic";
-
 export default async function AdminDashboardPage() {
   const prisma = requirePrisma();
   const today = new Date();
@@ -21,13 +19,15 @@ export default async function AdminDashboardPage() {
   let loadError: string | null = null;
 
   try {
-    // Keep concurrency low for Supabase transaction pooler (serverless).
-    const [contactStats, toolCount, adCount, viewRows] = await Promise.all([
+    // Two small batches — Supabase transaction pooler handles concurrency poorly.
+    const [contactStats, toolCount] = await Promise.all([
       prisma.contactMessage.groupBy({
         by: ["status"],
         _count: { _all: true },
       }),
       prisma.toolConfig.count({ where: { status: "live" } }),
+    ]);
+    const [adCount, viewRows] = await Promise.all([
       prisma.adSlot.count({ where: { enabled: true } }),
       prisma.pageViewDaily.findMany({
         where: { date: { gte: weekAgo } },

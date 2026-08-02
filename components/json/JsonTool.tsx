@@ -153,6 +153,16 @@ function JsonToolInner({ mode }: { mode: JsonToolMode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input, indent, autoFormat, mode]);
 
+  // Viewer: re-parse as the user pastes/types so the tree stays in sync.
+  useEffect(() => {
+    if (mode !== "viewer" || skipAutoRef.current) return;
+    const handle = window.setTimeout(() => {
+      void runValidate({ silent: true });
+    }, AUTO_FORMAT_DEBOUNCE_MS);
+    return () => window.clearTimeout(handle);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [input, mode]);
+
   async function runFormat(opts?: { silent?: boolean }) {
     if (!input.trim()) {
       setError({ message: "Paste or type JSON to format." });
@@ -205,15 +215,19 @@ function JsonToolInner({ mode }: { mode: JsonToolMode }) {
     setToast("Minified");
   }
 
-  async function runValidate() {
+  async function runValidate(opts?: { silent?: boolean }) {
     if (!input.trim()) {
-      setError({ message: "Paste or type JSON to validate." });
-      setStatus("invalid");
+      setError(
+        opts?.silent ? null : { message: "Paste or type JSON to validate." }
+      );
+      setStatus(opts?.silent ? "idle" : "invalid");
+      setParsed(null);
+      setOutput("");
       return;
     }
-    setBusy(true);
+    if (!opts?.silent) setBusy(true);
     const result = await processJson("validate", input, indent);
-    setBusy(false);
+    if (!opts?.silent) setBusy(false);
     if (!result.ok) {
       setError(result.error);
       setStatus("invalid");
@@ -224,7 +238,7 @@ function JsonToolInner({ mode }: { mode: JsonToolMode }) {
     setOutput(input);
     setError(null);
     setStatus("valid");
-    setToast("Valid JSON");
+    if (!opts?.silent) setToast(mode === "viewer" ? "Tree ready" : "Valid JSON");
   }
 
   async function copyOutput() {
@@ -388,7 +402,11 @@ function JsonToolInner({ mode }: { mode: JsonToolMode }) {
               />
             </div>
           </div>
-          <div className={fullscreen === "input" ? "panel-fullscreen-body" : ""}>
+          <div
+            className={`json-panel-body${
+              fullscreen === "input" ? " panel-fullscreen-body" : ""
+            }`}
+          >
             <JsonEditor
               ref={editorRef}
               value={input}
@@ -427,9 +445,9 @@ function JsonToolInner({ mode }: { mode: JsonToolMode }) {
               </div>
             </div>
             <div
-              className={
-                fullscreen === "output" ? "panel-fullscreen-body" : ""
-              }
+              className={`json-panel-body${
+                fullscreen === "output" ? " panel-fullscreen-body" : ""
+              }`}
             >
               <JsonOutput
                 text={outText}

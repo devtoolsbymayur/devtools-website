@@ -9,7 +9,7 @@ import {
   SITE_DESCRIPTION,
   SITE_TITLE,
 } from "@/lib/constants";
-import { getPrisma } from "@/lib/prisma";
+import { getPrisma, withDbTimeout } from "@/lib/prisma";
 
 export type AdPlacement =
   | "below-header"
@@ -96,18 +96,17 @@ const loadAdSlots = unstable_cache(
   async (): Promise<PublicAdSlot[]> => {
     const prisma = getPrisma();
     if (!prisma) return [];
-    try {
-      return await prisma.adSlot.findMany({
+    return withDbTimeout(
+      prisma.adSlot.findMany({
         select: {
           placement: true,
           label: true,
           enabled: true,
           adUnitCode: true,
         },
-      });
-    } catch {
-      return [];
-    }
+      }),
+      []
+    );
   },
   ["public-ad-slots"],
   { revalidate: REVALIDATE_SECONDS, tags: [CACHE_TAGS.ads] }
@@ -117,15 +116,14 @@ const loadPublicTools = unstable_cache(
   async (): Promise<PublicTool[]> => {
     const prisma = getPrisma();
     if (!prisma) return fallbackTools();
-    try {
-      const tools = await prisma.toolConfig.findMany({
+    const tools = await withDbTimeout(
+      prisma.toolConfig.findMany({
         orderBy: { displayOrder: "asc" },
-      });
-      if (tools.length === 0) return fallbackTools();
-      return tools;
-    } catch {
-      return fallbackTools();
-    }
+      }),
+      [] as PublicTool[]
+    );
+    if (tools.length === 0) return fallbackTools();
+    return tools;
   },
   ["public-tools"],
   { revalidate: REVALIDATE_SECONDS, tags: [CACHE_TAGS.tools] }
@@ -145,29 +143,28 @@ const loadHomeSeo = unstable_cache(
     const prisma = getPrisma();
     if (!prisma) return fallback;
 
-    try {
-      const row = await prisma.seoContent.findUnique({
+    const row = await withDbTimeout(
+      prisma.seoContent.findUnique({
         where: { pageKey: "home" },
-      });
-      if (!row) return fallback;
+      }),
+      null
+    );
+    if (!row) return fallback;
 
-      const faqItems = Array.isArray(row.faqItems)
-        ? (row.faqItems as { question?: string; answer?: string }[])
-            .filter((i) => i?.question && i?.answer)
-            .map((i) => ({
-              question: String(i.question),
-              answer: String(i.answer),
-            }))
-        : [];
+    const faqItems = Array.isArray(row.faqItems)
+      ? (row.faqItems as { question?: string; answer?: string }[])
+          .filter((i) => i?.question && i?.answer)
+          .map((i) => ({
+            question: String(i.question),
+            answer: String(i.answer),
+          }))
+      : [];
 
-      return {
-        metaTitle: row.metaTitle || fallback.metaTitle,
-        metaDescription: row.metaDescription || fallback.metaDescription,
-        faqItems: faqItems.length > 0 ? faqItems : fallback.faqItems,
-      };
-    } catch {
-      return fallback;
-    }
+    return {
+      metaTitle: row.metaTitle || fallback.metaTitle,
+      metaDescription: row.metaDescription || fallback.metaDescription,
+      faqItems: faqItems.length > 0 ? faqItems : fallback.faqItems,
+    };
   },
   ["public-home-seo"],
   { revalidate: REVALIDATE_SECONDS, tags: [CACHE_TAGS.seo] }

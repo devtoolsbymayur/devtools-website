@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ADMIN_BASE_PATH } from "@/lib/admin-path";
-import { STORAGE_KEYS } from "@/lib/constants";
+import { readConsent, writeConsent, type ConsentValue } from "@/lib/consent";
 
 export function ConsentBanner() {
   const pathname = usePathname();
@@ -12,38 +12,29 @@ export function ConsentBanner() {
   useEffect(() => {
     if (pathname.startsWith(ADMIN_BASE_PATH)) return;
     const id = window.requestAnimationFrame(() => {
-      try {
-        if (!localStorage.getItem(STORAGE_KEYS.consent)) {
-          setVisible(true);
-        }
-      } catch {
-        setVisible(true);
-      }
+      setVisible(readConsent() === null);
     });
     return () => window.cancelAnimationFrame(id);
   }, [pathname]);
 
   if (pathname.startsWith(ADMIN_BASE_PATH) || !visible) return null;
 
-  function decide(value: "accepted" | "rejected") {
-    try {
-      localStorage.setItem(STORAGE_KEYS.consent, value);
-    } catch {
-      /* ignore quota / private mode */
-    }
+  function decide(value: ConsentValue) {
+    writeConsent(value);
     setVisible(false);
   }
 
   return (
     <div
       role="dialog"
+      aria-modal="true"
       aria-label="Cookie consent"
       className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-surface p-4 shadow-[var(--shadow)]"
     >
       <div className="mx-auto flex max-w-[1200px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-text-muted">
-          We use cookies only for essential preferences (theme, consent) and
-          future analytics/ads. Your JSON is never uploaded.{" "}
+          We use cookies for essential preferences (theme, consent) and, if you
+          accept, analytics and ads. Your JSON is never uploaded.{" "}
           <a
             href="/privacy"
             className="text-accent underline-offset-2 hover:underline"

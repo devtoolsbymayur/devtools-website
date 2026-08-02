@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
-import { AdSenseScript } from "@/components/AdSenseScript";
-import { AnalyticsBeacon } from "@/components/AnalyticsBeacon";
-import { ConsentBanner } from "@/components/ConsentBanner";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
 import { ThemeScript } from "@/components/ThemeScript";
 import { getAdSenseClient } from "@/lib/adsense";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE } from "@/lib/constants";
 import { PRIMARY_KEYWORDS } from "@/lib/seo";
-import { getPublicTools, splitTools } from "@/lib/site-config";
 import "./globals.css";
 
 const adsenseClient = getAdSenseClient();
@@ -70,40 +64,26 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
     shortcut: "/favicon.ico",
   },
+  // Ownership meta only — ads script loads after consent on the public site.
   ...(adsenseClient
     ? { other: { "google-adsense-account": adsenseClient } }
     : {}),
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Cached tools list — Header/Footer hide themselves on admin via pathname.
-  // Avoid headers() here so public navigations are not forced fully dynamic.
-  const tools = await getPublicTools();
-  const { nav, more, footerTools } = splitTools(tools);
-
   return (
     <html
       lang="en"
       suppressHydrationWarning
       className={`${geistSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <head>
-        <AdSenseScript />
-      </head>
       <body className="flex min-h-full flex-col bg-bg text-text">
         <ThemeScript />
-        <Header navItems={nav.map((t) => ({ href: t.href, label: t.label }))} />
-        <main className="flex-1">{children}</main>
-        <Footer
-          tools={footerTools.map((t) => ({ href: t.href, label: t.label }))}
-          moreTools={more.map((t) => ({ href: t.href, label: t.label }))}
-        />
-        <ConsentBanner />
-        <AnalyticsBeacon />
+        {children}
       </body>
     </html>
   );

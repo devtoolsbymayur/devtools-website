@@ -1,9 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { BrandLogo } from "@/components/BrandLogo";
-import { ADMIN_BASE_PATH } from "@/lib/admin-path";
 import {
   FOOTER_COMPANY,
   FOOTER_MORE_TOOLS,
@@ -49,15 +45,10 @@ export function Footer({
   tools?: NavItem[];
   moreTools?: NavItem[];
 }) {
-  const pathname = usePathname();
   const year = new Date().getFullYear();
   const toolLinks = tools && tools.length > 0 ? tools : [...FOOTER_TOOLS];
   const moreLinks =
     moreTools && moreTools.length > 0 ? moreTools : [...FOOTER_MORE_TOOLS];
-
-  if (pathname.startsWith(ADMIN_BASE_PATH)) {
-    return null;
-  }
 
   return (
     <footer className="mt-auto border-t border-border bg-surface">

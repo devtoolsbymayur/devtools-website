@@ -26,8 +26,8 @@ export function JsonOutput({
   const activeMode = treeOnly ? "tree" : mode;
 
   return (
-    <div className="flex h-full min-h-[360px] flex-col">
-      <div className="flex flex-wrap items-center gap-2 border-b border-border px-3 py-2">
+    <div className="flex h-full min-h-0 flex-col overflow-hidden">
+      <div className="flex shrink-0 flex-wrap items-center gap-2 border-b border-border px-3 py-2">
         {!treeOnly && (
           <div
             role="tablist"
@@ -86,7 +86,7 @@ export function JsonOutput({
           </span>
         )}
       </div>
-      <div className="min-h-0 flex-1">
+      <div className="min-h-0 flex-1 overflow-hidden">
         {activeMode === "text" || parsed == null ? (
           treeOnly && parsed == null ? (
             <p className="p-6 text-sm text-text-muted">

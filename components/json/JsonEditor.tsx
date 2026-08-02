@@ -20,12 +20,15 @@ export const JsonEditor = forwardRef<ReactCodeMirrorRef, Props>(
         EditorView.lineWrapping,
         EditorView.theme({
           "&": {
+            height: "100%",
             backgroundColor: "var(--bg)",
             color: "var(--text)",
           },
+          ".cm-scroller": {
+            overflow: "auto",
+          },
           ".cm-content": {
             caretColor: "var(--accent)",
-            minHeight: "320px",
           },
           ".cm-gutters": {
             backgroundColor: "var(--surface)",
@@ -49,7 +52,7 @@ export const JsonEditor = forwardRef<ReactCodeMirrorRef, Props>(
 
     return (
       <div
-        className="h-full min-h-[320px] overflow-hidden"
+        className="h-full min-h-0 overflow-hidden"
         onDragOver={(e) => {
           if (!onDropFile) return;
           e.preventDefault();
@@ -65,7 +68,6 @@ export const JsonEditor = forwardRef<ReactCodeMirrorRef, Props>(
           ref={ref}
           value={value}
           height="100%"
-          minHeight="320px"
           theme="none"
           editable={!readOnly}
           basicSetup={{

@@ -99,10 +99,26 @@ body {
 .cm-editor .cm-scroller {
   font-family: var(--font-mono);
   line-height: 1.55;
+  overflow: auto !important;
 }
 
 .cm-editor.cm-focused {
   outline: none;
+}
+
+/* Fixed editor viewport — large JSON scrolls inside, not the whole page */
+.json-panel-body {
+  height: min(75vh, 720px);
+  min-height: 360px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.json-panel-body > * {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
 }
 
 body.panel-open {
@@ -123,6 +139,7 @@ body.panel-open {
 .panel-fullscreen-body {
   flex: 1;
   min-height: 0;
+  height: auto !important;
   display: flex;
   flex-direction: column;
 }
@@ -136,5 +153,5 @@ body.panel-open {
 .panel-fullscreen .cm-editor,
 .panel-fullscreen .cm-scroller {
   height: 100% !important;
-  min-height: 100% !important;
+  min-height: 0 !important;
 }

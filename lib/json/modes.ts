@@ -66,12 +66,12 @@ export const TOOL_MODE_CONFIG: Record<
   },
   viewer: {
     primaryAction: "validate",
-    actions: ["upload", "clear"],
+    actions: ["validate", "upload", "clear"],
     showIndent: false,
     showAutoFormat: false,
     showOutputPanel: true,
     defaultOutputView: "tree",
-    shortcutHint: "Upload a .json file to explore",
+    shortcutHint: "Ctrl+Enter to explore tree",
     storageSuffix: "viewer",
   },
 };
