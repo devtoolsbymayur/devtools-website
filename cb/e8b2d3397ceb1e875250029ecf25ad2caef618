@@ -1,0 +1,43 @@
+app/(site)/page.tsx
+  s_fb59fe56a0ff38::t_d2644cfaf31cae 39
+  s_fb59fe56a0ff38::t_d129e5b6ecd26a 6,17
+  s_fb59fe56a0ff38::t_d5b05f94ebb157 42-43
+app/layout.tsx
+  s_fb59fe56a0ff38::t_248ed189a07272 6-11,33,37,40,43,45-47,51
+lib/constants.ts
+  s_fb59fe56a0ff38::t_097b66690d26d6 2-3,5,8-9
+  s_fb59fe56a0ff38::t_65ed450f4247cb 7,10
+scripts/seed-admin.mjs
+  s_fb59fe56a0ff38::t_eaebcfc11d0d8b 62,69
+  s_fb59fe56a0ff38::t_8d355f7db82743 64,71
+public/manifest.json
+  s_fb59fe56a0ff38::t_d6db8bc22e08df 2-3
+  s_fb59fe56a0ff38::t_225ddb7986a161 4
+app/(site)/json-validator/page.tsx
+  s_fb59fe56a0ff38::t_ddcdfcc4aa644e 27
+lib/seo.ts
+  s_fb59fe56a0ff38::t_04f50d68ac3cfe 113,119-120,123,125,130,134,139
+  s_fb59fe56a0ff38::t_a77c805b7fd707 3-8,12,14
+  s_fb59fe56a0ff38::t_76eb6d5e54cdd6 160
+components/SEOContent.tsx
+  s_fb59fe56a0ff38::t_60ef398283cdc2 125
+  s_fb59fe56a0ff38::t_70dd025524ed61 12
+components/JsonLd.tsx
+  s_fb59fe56a0ff38::t_5a88571304be77 3,24,26,28-29,51,58-59,62-66,126,136
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "cbe8b2d3397ceb1e875250029ecf25ad2caef618",
+  "prompts": {},
+  "sessions": {
+    "s_fb59fe56a0ff38": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "447d0560-7137-4afd-ac8d-5ff8fedcea8c",
+        "model": "default"
+      },
+      "human_author": "Mayurdhvajsinh Vaghela <mayurdhvaj@kitchen365.com>"
+    }
+  }
+}
