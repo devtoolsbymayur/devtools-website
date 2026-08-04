@@ -3,7 +3,12 @@ import { Geist, JetBrains_Mono } from "next/font/google";
 import { AdSenseScript } from "@/components/AdSenseScript";
 import { ThemeScript } from "@/components/ThemeScript";
 import { getAdSenseClient } from "@/lib/adsense";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE } from "@/lib/constants";
+import {
+  SITE_BRAND,
+  SITE_DESCRIPTION,
+  SITE_OG_TITLE,
+  SITE_TITLE,
+} from "@/lib/constants";
 import { PRIMARY_KEYWORDS } from "@/lib/seo";
 import "./globals.css";
 
@@ -25,23 +30,25 @@ export const metadata: Metadata = {
   ),
   title: {
     default: SITE_TITLE,
-    template: `%s | ${SITE_NAME}`,
+    template: `%s | ${SITE_BRAND}`,
   },
   description: SITE_DESCRIPTION,
   keywords: [...PRIMARY_KEYWORDS],
-  applicationName: "json. JSON Format",
+  applicationName: SITE_BRAND,
   category: "technology",
   openGraph: {
-    title: SITE_TITLE,
+    title: SITE_OG_TITLE,
     description: SITE_DESCRIPTION,
     type: "website",
-    siteName: SITE_NAME,
+    siteName: SITE_BRAND,
     locale: "en_US",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: SITE_TITLE }],
+    images: [
+      { url: "/og-image.png", width: 1200, height: 630, alt: SITE_OG_TITLE },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: SITE_TITLE,
+    title: SITE_OG_TITLE,
     description: SITE_DESCRIPTION,
     images: ["/og-image.png"],
   },

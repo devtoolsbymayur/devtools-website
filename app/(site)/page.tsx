@@ -3,6 +3,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { JsonTool } from "@/components/json/JsonTool";
 import { RelatedTools } from "@/components/RelatedTools";
 import { FAQ, SEOContent } from "@/components/SEOContent";
+import { SITE_OG_TITLE } from "@/lib/constants";
 import { getAdSlot, getHomeSeo } from "@/lib/site-config";
 import { buildPageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
@@ -13,6 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: seo.metaTitle,
     description: seo.metaDescription,
     path: "/",
+    ogTitle: SITE_OG_TITLE,
   });
 }
 
@@ -34,11 +36,11 @@ export default async function HomePage() {
 
           <header className="mb-4 max-w-3xl">
             <h1 className="text-2xl font-semibold tracking-tight text-text sm:text-3xl">
-              JSON Format Online — Formatter, Beautifier &amp; Validator
+              JSON Formatter Online — Beautify, Validate &amp; Minify
             </h1>
             <p className="mt-1.5 text-sm text-text-muted">
-              Beautify, validate, and minify JSON in your browser — free &amp;
-              private.
+              Free JSON formatter &amp; validator — paste or upload, processed
+              locally in your browser.
             </p>
           </header>
 

@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE } from "@/lib/constants";
+import {
+  SITE_BRAND,
+  SITE_DESCRIPTION,
+  SITE_OG_TITLE,
+  SITE_TITLE,
+} from "@/lib/constants";
 
 export const PRIMARY_KEYWORDS = [
-  "json format",
   "json formatter",
+  "json format",
   "format json",
+  "online json formatter",
   "json beautifier",
   "json validator",
   "json minify",
-  "online json formatter",
 ] as const;
 
 function isLocalHost(url: string): boolean {
@@ -105,29 +110,33 @@ export function buildPageMetadata({
   description,
   path,
   keywords = [...PRIMARY_KEYWORDS],
+  ogTitle,
 }: {
   title: string;
   description: string;
   path: string;
   keywords?: string[];
+  /** Optional shorter title for Open Graph / Twitter cards. */
+  ogTitle?: string;
 }): Metadata {
   const url = absoluteUrl(path);
+  const socialTitle = ogTitle ?? title;
   return {
-    title,
+    title: { absolute: title },
     description,
     keywords: keywords.join(", "),
     alternates: { canonical: path },
     openGraph: {
-      title,
+      title: socialTitle,
       description,
       url,
       type: "website",
-      siteName: SITE_NAME,
+      siteName: SITE_BRAND,
       images: [{ url: "/og-image.png", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: socialTitle,
       description,
       images: ["/og-image.png"],
     },
@@ -148,4 +157,5 @@ export function buildPageMetadata({
 export const HOME_SEO = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
+  ogTitle: SITE_OG_TITLE,
 } as const;

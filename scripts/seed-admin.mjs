@@ -59,16 +59,16 @@ async function main() {
     where: { pageKey: "home" },
     update: {
       metaTitle:
-        "JSON Format Online — Free JSON Formatter, Beautifier & Validator",
+        "JSON Formatter Online — Beautify, Validate & Minify JSON",
       metaDescription:
-        "Format JSON online instantly. Free JSON formatter, beautifier, validator and minifier — paste or upload JSON, fix errors by line, and process everything locally in your browser.",
+        "Free online JSON formatter & validator. Paste or upload JSON, beautify, minify, and fix errors by line — processed locally in your browser. No signup required.",
     },
     create: {
       pageKey: "home",
       metaTitle:
-        "JSON Format Online — Free JSON Formatter, Beautifier & Validator",
+        "JSON Formatter Online — Beautify, Validate & Minify JSON",
       metaDescription:
-        "Format JSON online instantly. Free JSON formatter, beautifier, validator and minifier — paste or upload JSON, fix errors by line, and process everything locally in your browser.",
+        "Free online JSON formatter & validator. Paste or upload JSON, beautify, minify, and fix errors by line — processed locally in your browser. No signup required.",
       faqItems: [],
     },
   });

@@ -24,7 +24,7 @@ export default function JsonValidatorPage() {
     <ToolPage
       mode="validator"
       title="JSON Validator Online"
-      subtitle="Check whether your JSON format is valid. Get clear error messages with approximate line and column — no upload required."
+      subtitle="Check whether your JSON format is valid. Get clear error messages with approximate line and column — processed locally in your browser."
       currentPath="/json-validator"
     >
       <ToolSeoBlurb heading="Free JSON format checker">

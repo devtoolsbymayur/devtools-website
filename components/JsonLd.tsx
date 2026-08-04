@@ -1,5 +1,6 @@
 import {
   FAQ_ITEMS,
+  SITE_BRAND,
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_TITLE,
@@ -20,11 +21,12 @@ export function JsonLd({
   const software = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "JSON Format Online — json.",
+    name: title,
     alternateName: [
-      "JSON Formatter",
+      SITE_BRAND,
       "JSON Beautifier",
-      "Online JSON Format Tool",
+      "Online JSON Formatter",
+      SITE_NAME,
     ],
     url,
     applicationCategory: "DeveloperApplication",
@@ -46,16 +48,22 @@ export function JsonLd({
     ],
     brand: {
       "@type": "Brand",
-      name: SITE_NAME,
+      name: SITE_BRAND,
     },
   };
 
   const website = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: SITE_NAME,
+    name: SITE_BRAND,
+    alternateName: SITE_NAME,
     url,
     description: SITE_DESCRIPTION,
+    publisher: {
+      "@type": "Organization",
+      name: SITE_BRAND,
+      url,
+    },
   };
 
   const howTo = {
@@ -115,7 +123,7 @@ export function JsonLd({
       {
         "@type": "ListItem",
         position: 2,
-        name: "JSON Format",
+        name: SITE_BRAND,
         item: url,
       },
     ],
@@ -123,20 +131,9 @@ export function JsonLd({
 
   const graphs = [software, website, howTo, faq, breadcrumb];
 
-  const softwareApp = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: title,
-    applicationCategory: "DeveloperApplication",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    description,
-  };
-
-  const all = [...graphs, softwareApp] as const;
-
   return (
     <>
-      {all.map((data) => (
+      {graphs.map((data) => (
         <script
           key={String((data as { "@type"?: string })["@type"])}
           type="application/ld+json"

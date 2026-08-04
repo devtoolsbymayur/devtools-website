@@ -1,7 +1,7 @@
 {
-  "name": "json. — JSON Formatter",
-  "short_name": "json.",
-  "description": "Format, validate, minify and beautify JSON in your browser.",
+  "name": "JSON Formatter — json.",
+  "short_name": "JSON Formatter",
+  "description": "Free online JSON formatter & validator. Paste or upload JSON — processed locally in your browser.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FAFAF8",

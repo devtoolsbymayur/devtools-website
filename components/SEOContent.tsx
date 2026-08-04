@@ -9,7 +9,7 @@ export function SEOContent() {
     >
       <div>
         <h2 id="seo-heading" className="text-2xl font-semibold tracking-tight">
-          Free Online JSON Format Tool
+          Free Online JSON Formatter
         </h2>
         <p className="mt-3 max-w-3xl text-text-muted">
           Need to <strong className="font-medium text-text">format JSON</strong>{" "}
@@ -122,7 +122,7 @@ export function SEOContent() {
 
 export function FAQ({
   items = FAQ_ITEMS,
-  heading = "JSON Format FAQ",
+  heading = "JSON Formatter FAQ",
 }: {
   items?: readonly { question: string; answer: string }[];
   heading?: string;

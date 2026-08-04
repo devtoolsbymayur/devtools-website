@@ -1,8 +1,13 @@
 export const SITE_NAME = "json.";
+/** Brand signal for Open Graph / schema (clearer than logo-style "json."). */
+export const SITE_BRAND = "JSON Formatter";
 export const SITE_TITLE =
-  "JSON Format Online — Free JSON Formatter, Beautifier & Validator";
+  "JSON Formatter Online — Beautify, Validate & Minify JSON";
 export const SITE_DESCRIPTION =
-  "Format JSON online instantly. Free JSON formatter, beautifier, validator and minifier — paste or upload JSON, fix errors by line, and process everything locally in your browser.";
+  "Free online JSON formatter & validator. Paste or upload JSON, beautify, minify, and fix errors by line — processed locally in your browser. No signup required.";
+/** Shorter title for social share cards. */
+export const SITE_OG_TITLE =
+  "Free JSON Formatter & Validator — Private & Local";
 
 export const EXAMPLE_JSON = `{
   "name": "John Doe",
