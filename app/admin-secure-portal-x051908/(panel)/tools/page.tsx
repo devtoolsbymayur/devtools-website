@@ -20,6 +20,7 @@ async function saveTool(formData: FormData) {
   revalidatePath("/admin-secure-portal-x051908/tools");
   revalidatePath("/admin-secure-portal-x051908");
   revalidatePath("/", "layout");
+  revalidatePath("/sitemap.xml");
 }
 
 export default async function AdminToolsPage() {
@@ -32,8 +33,24 @@ export default async function AdminToolsPage() {
     <div>
       <h1 className="text-2xl font-semibold">Tool management</h1>
       <p className="mt-1 text-sm text-text-muted">
-        Control status and display order for nav/footer tools.
+        Control footer / nav visibility and whether a tool URL works.
       </p>
+      <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-text-muted">
+        <li>
+          <strong className="font-medium text-text">Live</strong> — shown in
+          footer/related with a working link; page is usable and in sitemap.
+        </li>
+        <li>
+          <strong className="font-medium text-text">Coming soon</strong> — listed
+          in footer as “soon” but <em>not clickable</em>; direct URL shows a
+          coming-soon page (no tool).
+        </li>
+        <li>
+          <strong className="font-medium text-text">Hidden</strong> — removed from
+          footer/nav/related/sitemap; direct URL returns 404 (no redirect to
+          the tool).
+        </li>
+      </ul>
 
       <div className="mt-6 space-y-3">
         {tools.map((tool) => (

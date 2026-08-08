@@ -8,13 +8,10 @@ export async function RelatedTools({
 }) {
   const tools = await getPublicTools();
   const { related } = splitTools(tools);
+  // Only live tools get links — coming-soon/hidden must not navigate.
   const items = related
-    .filter((tool) => tool.href !== currentPath)
-    .sort((a, b) => {
-      const aLive = a.status === "live" ? 0 : 1;
-      const bLive = b.status === "live" ? 0 : 1;
-      return aLive - bLive || a.displayOrder - b.displayOrder;
-    });
+    .filter((tool) => tool.status === "live" && tool.href !== currentPath)
+    .sort((a, b) => a.displayOrder - b.displayOrder);
 
   if (items.length === 0) return null;
 
@@ -34,11 +31,6 @@ export async function RelatedTools({
               className="inline-flex items-center gap-1.5 rounded-[var(--radius)] border border-border bg-surface px-3 py-1.5 text-sm text-text-muted transition-colors duration-150 hover:border-accent hover:text-accent"
             >
               {tool.label}
-              {tool.status === "coming-soon" && (
-                <span className="text-[10px] uppercase tracking-wide text-text-muted/80">
-                  soon
-                </span>
-              )}
             </Link>
           </li>
         ))}

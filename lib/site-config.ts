@@ -75,7 +75,7 @@ function fallbackTools(): PublicTool[] {
       toolKey: t.href.slice(1),
       label: t.label,
       href: t.href,
-      status: "coming-soon",
+      status: "live",
       displayOrder: 10 + i,
     })),
     ...RELATED_TOOLS.filter(
@@ -86,7 +86,7 @@ function fallbackTools(): PublicTool[] {
       toolKey: t.href.slice(1),
       label: t.label,
       href: t.href,
-      status: "coming-soon",
+      status: "live",
       displayOrder: 20 + i,
     })),
   ];

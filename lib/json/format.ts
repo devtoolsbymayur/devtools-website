@@ -49,8 +49,12 @@ export function countLines(text: string): number {
   return text.split(/\r\n|\r|\n/).length;
 }
 
-export function downloadText(filename: string, content: string) {
-  const blob = new Blob([content], { type: "application/json;charset=utf-8" });
+export function downloadText(
+  filename: string,
+  content: string,
+  mimeType = "application/json;charset=utf-8"
+) {
+  const blob = new Blob([content], { type: mimeType });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;

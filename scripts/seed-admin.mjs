@@ -15,12 +15,12 @@ const DEFAULT_TOOLS = [
   { toolKey: "json-validator", label: "JSON Validator", href: "/json-validator", status: "live", displayOrder: 2 },
   { toolKey: "json-minifier", label: "JSON Minifier", href: "/json-minifier", status: "live", displayOrder: 3 },
   { toolKey: "json-viewer", label: "JSON Viewer", href: "/json-viewer", status: "live", displayOrder: 4 },
-  { toolKey: "xml-formatter", label: "XML Formatter", href: "/xml-formatter", status: "coming-soon", displayOrder: 5 },
-  { toolKey: "csv-to-json", label: "CSV to JSON", href: "/csv-to-json", status: "coming-soon", displayOrder: 6 },
+  { toolKey: "xml-formatter", label: "XML Formatter", href: "/xml-formatter", status: "live", displayOrder: 5 },
+  { toolKey: "csv-to-json", label: "CSV to JSON", href: "/csv-to-json", status: "live", displayOrder: 6 },
   { toolKey: "base64-encoder", label: "Base64 Encoder", href: "/base64-encoder", status: "live", displayOrder: 7 },
   { toolKey: "jwt-decoder", label: "JWT Decoder", href: "/jwt-decoder", status: "live", displayOrder: 8 },
-  { toolKey: "url-encoder", label: "URL Encoder", href: "/url-encoder", status: "coming-soon", displayOrder: 9 },
-  { toolKey: "timestamp-converter", label: "Timestamp Converter", href: "/timestamp-converter", status: "coming-soon", displayOrder: 10 },
+  { toolKey: "url-encoder", label: "URL Encoder", href: "/url-encoder", status: "live", displayOrder: 9 },
+  { toolKey: "timestamp-converter", label: "Timestamp Converter", href: "/timestamp-converter", status: "live", displayOrder: 10 },
 ];
 
 async function main() {

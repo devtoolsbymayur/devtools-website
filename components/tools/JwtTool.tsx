@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { ToolTextPanel } from "@/components/tools/ToolTextPanel";
+import { usePanelFullscreen } from "@/components/tools/usePanelFullscreen";
 
 function decodePart(part: string): unknown {
   const padded = part.replace(/-/g, "+").replace(/_/g, "/");
@@ -16,6 +18,9 @@ export function JwtTool() {
   const [header, setHeader] = useState("");
   const [payload, setPayload] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [fullscreen, setFullscreen] = usePanelFullscreen<
+    "token" | "header" | "payload"
+  >();
 
   function decode() {
     try {
@@ -23,8 +28,8 @@ export function JwtTool() {
       if (parts.length < 2) {
         throw new Error("JWT must have at least header and payload parts.");
       }
-      setHeader(JSON.stringify(decodePart(parts[0]), null, 2));
-      setPayload(JSON.stringify(decodePart(parts[1]), null, 2));
+      setHeader(JSON.stringify(decodePart(parts[0]!), null, 2));
+      setPayload(JSON.stringify(decodePart(parts[1]!), null, 2));
       setError(null);
     } catch (e) {
       setHeader("");
@@ -64,34 +69,38 @@ export function JwtTool() {
           {error}
         </p>
       )}
-      <label className="block">
-        <span className="mb-2 block text-sm font-medium">JWT</span>
-        <textarea
-          value={token}
-          onChange={(e) => setToken(e.target.value)}
-          rows={5}
-          className="w-full rounded-[var(--radius)] border border-border bg-surface p-3 font-mono text-sm"
-        />
-      </label>
+      <ToolTextPanel
+        panelId="token"
+        title="JWT"
+        value={token}
+        onChange={setToken}
+        breakAll
+        fullscreen={fullscreen}
+        onToggleFullscreen={() =>
+          setFullscreen((v) => (v === "token" ? null : "token"))
+        }
+      />
       <div className="grid gap-4 lg:grid-cols-2">
-        <label className="block">
-          <span className="mb-2 block text-sm font-medium">Header</span>
-          <textarea
-            value={header}
-            readOnly
-            rows={10}
-            className="w-full rounded-[var(--radius)] border border-border bg-surface p-3 font-mono text-sm"
-          />
-        </label>
-        <label className="block">
-          <span className="mb-2 block text-sm font-medium">Payload</span>
-          <textarea
-            value={payload}
-            readOnly
-            rows={10}
-            className="w-full rounded-[var(--radius)] border border-border bg-surface p-3 font-mono text-sm"
-          />
-        </label>
+        <ToolTextPanel
+          panelId="header"
+          title="Header"
+          value={header}
+          readOnly
+          fullscreen={fullscreen}
+          onToggleFullscreen={() =>
+            setFullscreen((v) => (v === "header" ? null : "header"))
+          }
+        />
+        <ToolTextPanel
+          panelId="payload"
+          title="Payload"
+          value={payload}
+          readOnly
+          fullscreen={fullscreen}
+          onToggleFullscreen={() =>
+            setFullscreen((v) => (v === "payload" ? null : "payload"))
+          }
+        />
       </div>
     </div>
   );

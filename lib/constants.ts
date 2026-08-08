@@ -46,6 +46,8 @@ export const FOOTER_MORE_TOOLS = [
   { href: "/csv-to-json", label: "CSV to JSON" },
   { href: "/base64-encoder", label: "Base64 Encoder" },
   { href: "/jwt-decoder", label: "JWT Decoder" },
+  { href: "/url-encoder", label: "URL Encoder" },
+  { href: "/timestamp-converter", label: "Timestamp Converter" },
 ] as const;
 
 export const FOOTER_COMPANY = [
@@ -117,6 +119,6 @@ export const FAQ_ITEMS = [
   {
     question: "Which JSON format tools are included?",
     answer:
-      "This site includes a JSON formatter, JSON validator, JSON minifier, JSON viewer (tree view), plus related developer tools like Base64 and JWT decoder.",
+      "This site includes a JSON formatter, JSON validator, JSON minifier, JSON viewer (tree view), plus XML formatter, CSV↔JSON, Base64, JWT decoder, URL encoder, and timestamp converter — all processed locally in your browser.",
   },
 ] as const;

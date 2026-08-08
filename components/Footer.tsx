@@ -7,7 +7,12 @@ import {
   SITE_NAME,
 } from "@/lib/constants";
 
-type NavItem = { href: string; label: string; soon?: boolean };
+type NavItem = {
+  href: string;
+  label: string;
+  /** Coming soon — shown in footer but not clickable. */
+  soon?: boolean;
+};
 
 function FooterColumn({
   title,
@@ -24,18 +29,23 @@ function FooterColumn({
       </h2>
       <ul className="space-y-2">
         {links.map((link) => (
-          <li key={link.href}>
-            <Link
-              href={link.href}
-              className="inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors duration-150 hover:text-accent"
-            >
-              {link.label}
-              {link.soon ? (
-                <span className="text-[10px] uppercase tracking-wide text-text-muted/80">
-                  soon
-                </span>
-              ) : null}
-            </Link>
+          <li key={`${link.href}-${link.label}`}>
+            {link.soon ? (
+              <span
+                className="inline-flex cursor-default items-center gap-1.5 text-sm text-text-muted/70"
+                title="Coming soon — not available yet"
+              >
+                {link.label}
+                <span className="text-[10px] uppercase tracking-wide">soon</span>
+              </span>
+            ) : (
+              <Link
+                href={link.href}
+                className="inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors duration-150 hover:text-accent"
+              >
+                {link.label}
+              </Link>
+            )}
           </li>
         ))}
       </ul>
@@ -48,12 +58,16 @@ export function Footer({
   moreTools,
 }: {
   tools?: NavItem[];
+  /**
+   * When provided (including `[]`), Admin/DB list is used.
+   * Only omit to fall back to static constants (no DB).
+   */
   moreTools?: NavItem[];
 }) {
   const year = new Date().getFullYear();
   const toolLinks = tools && tools.length > 0 ? tools : [...FOOTER_TOOLS];
   const moreLinks =
-    moreTools && moreTools.length > 0
+    moreTools !== undefined
       ? moreTools
       : FOOTER_MORE_TOOLS.map((t) => ({ ...t, soon: true }));
 

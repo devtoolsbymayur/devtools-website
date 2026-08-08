@@ -1,28 +1,17 @@
 "use client";
 
 import { useState } from "react";
-
-function encodeBase64(text: string): string {
-  const bytes = new TextEncoder().encode(text);
-  let binary = "";
-  bytes.forEach((b) => {
-    binary += String.fromCharCode(b);
-  });
-  return btoa(binary);
-}
-
-function decodeBase64(text: string): string {
-  const cleaned = text.replace(/\s+/g, "");
-  const binary = atob(cleaned);
-  const bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
-  return new TextDecoder().decode(bytes);
-}
+import { ToolTextPanel } from "@/components/tools/ToolTextPanel";
+import { usePanelFullscreen } from "@/components/tools/usePanelFullscreen";
+import { decodeBase64, encodeBase64 } from "@/lib/base64";
+import { countLines } from "@/lib/json/format";
 
 export function Base64Tool() {
   const [input, setInput] = useState("Hello, json.");
   const [output, setOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  const [fullscreen, setFullscreen] = usePanelFullscreen<"input" | "output">();
 
   function encode() {
     try {
@@ -100,24 +89,32 @@ export function Base64Tool() {
         </p>
       )}
       <div className="grid gap-4 lg:grid-cols-2">
-        <label className="block">
-          <span className="mb-2 block text-sm font-medium">Input</span>
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            rows={12}
-            className="w-full rounded-[var(--radius)] border border-border bg-surface p-3 font-mono text-sm"
-          />
-        </label>
-        <label className="block">
-          <span className="mb-2 block text-sm font-medium">Output</span>
-          <textarea
-            value={output}
-            readOnly
-            rows={12}
-            className="w-full rounded-[var(--radius)] border border-border bg-surface p-3 font-mono text-sm"
-          />
-        </label>
+        <ToolTextPanel
+          panelId="input"
+          title="Input"
+          value={input}
+          onChange={setInput}
+          stats={`${countLines(input)} lines · ${input.length} chars`}
+          fullscreen={fullscreen}
+          onToggleFullscreen={() =>
+            setFullscreen((v) => (v === "input" ? null : "input"))
+          }
+        />
+        <ToolTextPanel
+          panelId="output"
+          title="Output"
+          value={output}
+          readOnly
+          stats={
+            output
+              ? `${countLines(output)} lines · ${output.length} chars`
+              : "—"
+          }
+          fullscreen={fullscreen}
+          onToggleFullscreen={() =>
+            setFullscreen((v) => (v === "output" ? null : "output"))
+          }
+        />
       </div>
       {toast && (
         <div
